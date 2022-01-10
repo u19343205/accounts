@@ -1,0 +1,32 @@
+<!-- WMGTSS Login Screen -->
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<p>
+  {% load static %} <img src="{% static "dj_app/images/Logo.png" %}" alt="Logo" />
+
+</p>
+
+<h2 style = "font-size: 80px; text-align: center;">WARWICK</h2 style>
+<body style="background-color:#6dd6c2; color: rgb(255, 255, 255)">
+
+<form method="post" style="text-align: center; ">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" style = "background-color:#014e45; color:#ffffff">Log In</button>
+</form>
+
+
+<div style = "position: relative; top: 250px; font-size: 25px; text-align: center;">
+
+Welcome to the Warwick <br> Manufacturing Group <br> Teaching Support System 
+
+
+</div>
+
+</p>
+  
+</body>
+{% endblock %}

@@ -1,16 +1,26 @@
 <!-- templates/base.html -->
 {% load static %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name = "viewport" content="width =device-width, initial-scale"> 
-  <link rel="stylesheet" type="text/css" href="{% static 'dj_app/css/wmgtss.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/wmgtss.css' %}">
   <link href="{% static 'css/bootstrap.min.css' %}" >  
     <script src="{% static 'bootstrap.min.js' %}"></script>  
   
   <title>{% block title %}WMGTSS{% endblock %}</title>
+
+  
+  
+  
+
+  <p style = "text-align : right;">Welcome {{ user.username }}</p>
+  
+<div class="rectangle"></div>
 
 </head>
 <body>
@@ -19,6 +29,23 @@
 
     {% endblock %}
   </main>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "text-align : right;">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only"></span></a>
+            <a class="nav-item nav-link" href="#">Profile</a>
+            <a class="nav-item nav-link" href="#">Messages</a>
+            <a class="nav-item nav-link disabled" href="#">Settings</a>
+        </div>
+    </div>
+</nav>
+
+
 </body>
 <footer>
     <div class="footer">
@@ -27,15 +54,6 @@
       | </p>
     </div>
   </footer>
-  <style>
-    .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(109, 214, 194);
-    color: white;
-    text-align: left;
-  }
-  </style>
+  
+
 </html>

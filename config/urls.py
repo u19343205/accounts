@@ -28,3 +28,6 @@ urlpatterns = [
 
 urlpatterns += staticfiles_urlpatterns()
 
+admin.site.site_header = "WMGTSS Admin"
+admin.site.site_title = "WMGTSS Admin Portal"
+admin.site.index_title = "Welcome to WMGTSS Portal"

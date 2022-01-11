@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends 'base.html' %}
+<!--
+{% if user.is_authenticated %}
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+
+-->
 
 {% block title %}WMGTSS Dashboard{% endblock %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
+
   <p style = "text-align : right;">Welcome {{ user.username }}</p>
+  <h2 style = "font-size: 40px; text-align: center; color: white;">Dashboard</h2 style>
 
+  
 
-  <style>
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: rgb(109, 214, 194);
-      color: white;
-      text-align: left;
-    }
-    </style>
-    <div class="footer"></div>
-    <p style ="text-indent: 40px">You are logged in as {{user.username}}  <a href="{% url 'logout' %}">Log Out</a> </p>
-  </div>
+  
   
 
 
@@ -42,11 +40,6 @@
 
 
 
-
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-{% endif %}
 
 {% endblock %}
 

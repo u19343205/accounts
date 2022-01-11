@@ -1,6 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'base.html' %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name = "viewport" content="width =device-width, initial-scale"> 
+  <link rel="stylesheet" type="text/css" href="{% static 'dj_app/css/wmgtss.css' %}">
+
 <!--
 {% if user.is_authenticated %}
 
@@ -11,13 +18,13 @@
 
 -->
 
-{% block title %}WMGTSS Dashboard{% endblock %}
+
 
 {% block content %}
 
 
   <p style = "text-align : right;">Welcome {{ user.username }}</p>
-  <h2 style = "font-size: 40px; text-align: center; color: white;">Dashboard</h2 style>
+  <h1 >Dashboard</h1>
 
   
 
@@ -41,12 +48,11 @@
 
 
 
-{% endblock %}
 
 
 <head>
  <meta charset="utf-8">
-<title>WMGTSS Q&A Board</title>
+<title>Dashboard</title>
 <img src="Logo.png"
   left = 0;
    top = 0;
@@ -55,7 +61,6 @@
  
 >
 
-<h1 style ="display: inline-block; text-align: center; color: #014e45; " >Questions & Answers</h1>
 
 <style>
   .rectangle {
@@ -78,7 +83,8 @@
 </style>
 </head>
 <body>
-    
+  {% endblock %}
+   
 <style>
 .footer {
   position: fixed;

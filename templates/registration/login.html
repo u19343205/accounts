@@ -7,27 +7,46 @@
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name = "viewport" content="width =device-width, initial-scale"> 
-
-<h2 style = "font-size: 80px; text-align: center;">WARWICK</h2 style>
+<style>
+  body {
+    font-family: Georgia, serif;
+  }
+</style>
 <body style="background-color:#8cebd9; color: #ffffff">
   <p>
     <img src="{% static "/images/W.png" %}"
       alt="W" class="W" />
   </p>
+  <h2 style = "font-size: 80px; 
+  font-family: Tahoma, sans-serif; 
+  text-align: center;
+  font-weight: 300; 
+  
+  ">WARWICK</h2 style>
   <p>
     <img src="{% static "/images/WMGTSS.png" %}"
      width="500" height="400" alt="Logo" class="center" />
   </p>
   <style>
     .center {
-  display: block;
+  position: relative;
+  top: -180px;
+  clear: both;
+  display: inline;
   margin-left: auto;
   margin-right: auto;
+  object-fit: contain;
+  
   width: 90%;
 }
-.W  {width: 90%}
+.W  {
+  width: 100%
+
+}
   </style>
-<form method="post" style="text-align: center; ">
+<form method="post" style="text-align: center;
+position: relative;
+top: -270px;  ">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit" style = "background-color:#014e45; color:#ffffff">Log In</button>
@@ -35,7 +54,10 @@
 
 
 <div style = 
-"position: relative; font-size: 25px; text-align: center;">
+"position: relative; 
+top: -220px;
+font-size: 25px; 
+text-align: center;">
 
 Welcome to the Warwick <br> Manufacturing Group <br> Teaching Support System 
 

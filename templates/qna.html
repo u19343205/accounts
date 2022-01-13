@@ -4,18 +4,16 @@
 <html lang="en">
 <head>
  <meta charset="utf-8">
- {% block title %}
-<title>WMGTSS Q&A Board</title>
-<img src="Logo.png"
-  left = 0;
-   top = 0;
-   width = 15%;
-   height = 50px;
- 
-   
->
+ {% block content %}
+<title>{% block title %}WMGTSS Q&A Board{% endblock %}</title>
 
-<h1 style ="display: inline-block; text-align: center; color: #014e45; " >Questions & Answers</h1>
+<h1 style ="
+position: fixed;
+top: 0px;
+font-size: 45px;
+display: inline-block; 
+text-align: center; color: #014e45; "
+ >Questions & Answers</h1>
 {% endblock %}
 <style>
   .rectangle {
@@ -27,7 +25,7 @@
      background-color: #9fe2d8;
      color: rgb(0,121,107);
      text-align: center;
-     z-index:-1; <!--move object backwards one--> 
+     z-index:-1; 
     }
   </style>
 

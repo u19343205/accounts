@@ -25,20 +25,26 @@ from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.views.decorators.vary import vary_on_cookie
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
-    path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A') #Q&A Board
+    path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
+    path('', RedirectView.as_view(url='catalog/', permanent=True)),
+     
+
 
      
 ]
 
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "WMGTSS Admin"
 admin.site.site_title = "WMGTSS Admin Portal"

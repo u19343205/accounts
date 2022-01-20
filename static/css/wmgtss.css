@@ -23,4 +23,14 @@ body {
     color: white;
     text-align: left;
   }
+
   
+    .btn-square-xl {
+    width: 200px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    height: 200px !important;
+    text-align: center;
+    padding: 0px;
+    font-size:24px;
+    }

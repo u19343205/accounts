@@ -1,8 +1,17 @@
 from django.shortcuts import render
-from django.contrib import admin
-from django.http import HttpResponse
 
-def index(request):
-    return render(request, 'accounts/login.html')
-
+#DataFlair #Views #TemplateInheritance
 # Create your views here.
+def home(request):
+    return render(request, 'base.html')
+
+def other(request):
+    context = {
+    'k1': 'Welcome to the Second page',
+    }
+    return render(request, 'home.html', context)
+
+import datetime
+def about(request):
+    time = datetime.datetime.now()
+    return render(request, 'home.html',{'time': time})

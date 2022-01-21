@@ -3,6 +3,7 @@ $ cd ~/Desktop
 $ mkdir accounts && cd accounts
 $ pipenv install django~=3.1.0
 $ pipenv shell
+$python -m pip install Pillow
 (WMGTSS) $ python manage.py runserver 
 
 copy & paste link in default browser

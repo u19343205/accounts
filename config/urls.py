@@ -35,17 +35,18 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
     path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
-    path('', RedirectView.as_view(url='catalog/', permanent=True)),
-     
-
+    path('', RedirectView.as_view(url='accounts/login/', permanent=True)),
 
      
 ]
-
+#This media handling will old be located here during WMGTSS testing. Throughout production media will be stored on a seperate server
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "WMGTSS Admin"
 admin.site.site_title = "WMGTSS Admin Portal"
-admin.site.index_title = "Welcome to WMGTSS Portal"
+
+
+
+

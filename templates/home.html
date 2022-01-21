@@ -13,29 +13,42 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 {% if user.is_authenticated %}
+
+{% block header %} 
+Dashboard
+   {% endblock %}
+
 {% block content %}
-<div class="jumbotron text-center">
-  <h1 style = "position: fixed;
-  top: 0px;
-  font-size: 45px;
-  display: inline-block; 
-  text-align: center; color: #014e45;"
-  >Dashboard</h1>
-</div>
+
+<title>WMGTSS Dashboard</title>
+
 </head>
 <body>
   
-  <div class="container">
-    <!--Row with three equal columns-->
-    <div class="row">
-        <div class="col-lg-4">Column left</div>
-        <div class="col-lg-4">Column middle</div>
-        <div class="col-lg-4">Column right</div>
+  <div class="content">
+    <div class="container" align = "center";>
+      <p style="padding:30px;"></p>
+  
+      <div class="row">
+        <div class="col-sm">
+          <button type="button" class="btn-square-xl" disabled>Calendar</button>
+          <button type="button" class="btn-square-xl" disabled>Notice</button>
+          <button type="button" class="btn-square-xl"disabled>Resource</button>
+        </div> 
+       
+        <div class="col-sm offset-2">
+          <button type="button" class="btn-square-xl"disabled>Quiz</button>
+          <a href="http://127.0.0.1:8000/qna/"><button type="button"  class= "btn-square-xl" >Q&A</button></a>
+          
+          <button type="button" class="btn-square-xl"disabled>Feedback</button>
+        </div>
+      
+      </div>
     </div>
+  
+  
 
 </div>
-
-  
 </body>
 
 

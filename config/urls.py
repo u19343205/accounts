@@ -28,14 +28,20 @@ from django.views.decorators.vary import vary_on_cookie
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from catalog import views 
+from catalog.views import askquestion
+from catalog.forms import QuestionForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/login', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
-    path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
-    path('', RedirectView.as_view(url='accounts/login/', permanent=True)),
+    path('ask/', TemplateView.as_view(template_name='ask.html'), name='WMGTSS Q&A'), #Q&A Board
+    path('test/', TemplateView.as_view(template_name='test.html'), name='WMGTSS Dashboard'),
+    url(r'^askquestion/$', views.askquestion, name='askquestion')
+
+
 
      
 ]

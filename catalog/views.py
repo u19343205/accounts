@@ -1,29 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-from catalog.forms import QuestionForm
+from .forms import QuestionForm
 from catalog.models import Question
-from django.urls import reverse
-
-def index(request):
-    return HttpResponse ('home.html')
-
+from django.http import HttpResponseRedirect
 
 def askquestion(request):
-
-    if request.method == "POST":
-        question_form = QuestionForm(data=request.POST)
-
+    if request.POST:
+        question_form = QuestionForm(request.POST)
         if question_form.is_valid():
-            Question = question_form.save()
+            question_form.save(commit=False)
+            return HttpResponseRedirect('/')
 
         else:
-            print(question_form.errors)
-
-
-    else:
-        question_form = QuestionForm()
-
-    return render(request, 'qna.html',{'question_form':QuestionForm})
-
-
+            question_form = QuestionForm
+        context = {
+            'questions': QuestionForm.objects.all(),
+            "question_form": question_form,
+            'username': auth.get_user(request).username,
+    }
+        context.update(csrf(request))
+        return render(request, 'ask.html', context)

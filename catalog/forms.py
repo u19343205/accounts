@@ -1,30 +1,17 @@
 from django import forms 
-from django.contrib.auth.models import Question, User
+from django.forms import fields
+from catalog.models import Question
 
 
 class QuestionForm(forms.ModelForm):
-    email = forms.EmailField()
-
-    class Meta():
-        model = User
-
-
-    Assignment_Related = 'Assignment Related'
-    Lecture_Related = 'Lecture Related'
-    General = 'General'
-
-    topics = [
-
-    (Assignment_Related,'Assignment Related'),
-    (Lecture_Related,  'Lecture Related'),
-    (General, 'General'),
-    ]
-    
-    topics = forms.ChoiceField(required=True, choices=topics)
-
-
-    class Meta():
-        model = Question 
-        fields = ('topics', 'question',)
-
-
+    class Meta:
+        model = Question
+        fields =  (
+            'topics',
+            'subject',
+            'question',
+            'pub_date',
+            'picture',
+            
+        )
+        

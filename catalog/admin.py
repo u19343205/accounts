@@ -1,6 +1,7 @@
 from django.contrib import admin
+from catalog.forms import QuestionForm
 
-from catalog.models import  Profile, Course, Module, Assignment, Grade, Question, Choice, Submission
+from catalog.models import  Profile, Course, Module, Assignment, Grade, Question, Student, Submission
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -26,17 +27,14 @@ class QuestionInline(admin.TabularInline):
   model = Question
   show_change_link = True
 
-class ChoiceInline(admin.TabularInline):
-  model = Choice
 
 class QuestionAdmin(admin.ModelAdmin):
-  inlines = [
-    ChoiceInline
-  ]
+  model = Question
+
 class SubmissionAdmin(admin.ModelAdmin):
    model = Submission
 
 
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Choice)
 admin.site.register(Submission, SubmissionAdmin)
+admin.site.register(Student)

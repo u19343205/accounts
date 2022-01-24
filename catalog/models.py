@@ -85,22 +85,15 @@ class Question(models.Model):
     ordering = ['-date']
 
 
-
     def __str__(self):
         return self.subject
 
-class Choice(models.Model):
-  question = models.ForeignKey(Question, null=True, on_delete=models.CASCADE)
-  text = models.CharField(max_length=255)
-
-  def __str__(self):
-    return f"{self.question.text}:{self.text}"
 
 class Submission(models.Model):
   submission = models.ForeignKey(Question, on_delete=models.PROTECT)
   email = models.EmailField(max_length=100)
-  answer = models.ManyToManyField(Choice)
   status = models.CharField(max_length=255)
 
-    
+class Student(models.Model):
+    student_name = models.CharField(max_length=200)
     

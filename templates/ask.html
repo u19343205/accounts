@@ -32,13 +32,25 @@
      }
     </style>
   
-  <form action = "/askquestion" method="post">
+  <form method="post">
     {% csrf_token %}
+  
     {{ form.as_p }}
-   <br>
-    <button type="submit">Submit</button>
+    <p><label for="id_topics">Topics:</label> 
+      <select name="topics" id="id_topics">
+      <option value="Assignment Related">Assignment Related</option>
+       <option value="Lecture Related">Lecture Related</option>
+      <option value="General" selected>General</option></select></p>
+      
+    <p><label for="id_subject">Subject:</label> 
+    <textarea name="subject" cols="40" rows="10" maxlength="100" required id="id_subject"> </textarea></p>
+    <p><label for="id_question">Question:</label> 
+    <textarea name="question" cols="40" rows="10" required id="id_question"></textarea></p>
+    <p><label for="id_picture">Question Attachment:</label> 
+      <input type="file" name="picture" accept="image/*" id="id_picture"></p>
+    <p><button type="submit">Submit</button></p>
    
-
+  </form>
   <script>
     // When the user clicks on <div>, open the popup
     function myFunction() {
@@ -66,7 +78,6 @@
     <option value="Lecture">Lecture Related</option>
     <option value="General">General</option>
 </select><br><br>
-
 <label for="Assignment ID">Topic:</label>
 <select name="topics" id="topics">
     <option value="Assignment">Assignment Related</option>
@@ -75,11 +86,9 @@
 </select><br><br>
 <label for="Subject"> Enter the subject of your question:</label> <br>
  <textarea rows="1" cols="25" name="Subject" id="Subject">
-
  </textarea><br><br>
   <label for="address">Ask Your Question:</label> <br>
   <textarea rows="10" cols="50" name="Question" id="Question"></textarea><br>
-
   <label for="file-select" style = "text-align: center;">Upload Attachment:</label>
   <input type="file" name="upload" id="file-select"> <br>
   -->

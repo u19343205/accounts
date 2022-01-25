@@ -96,4 +96,3 @@ class Submission(models.Model):
 
 class Student(models.Model):
     student_name = models.CharField(max_length=200)
-    

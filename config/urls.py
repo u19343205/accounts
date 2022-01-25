@@ -1,5 +1,4 @@
 """config URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -29,19 +28,18 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from catalog import views 
-from catalog.views import askquestion
-from catalog.forms import QuestionForm
 import catalog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('catalog.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('catalog', views.index, name='home.html'),
     path('accounts/login', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
     path('ask/', TemplateView.as_view(template_name='ask.html'), name='WMGTSS Q&A'), #Q&A Board
     path('test/', TemplateView.as_view(template_name='test.html'), name='WMGTSS Dashboard'),
-    url(r'^askquestion/$', views.askquestion, name='askquestion'),
+    path('catalog/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'),
+    
 
 
 
@@ -54,7 +52,4 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "WMGTSS Admin"
 admin.site.site_title = "WMGTSS Admin Portal"
-
-
-
 

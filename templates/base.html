@@ -13,19 +13,20 @@
     <script src="{% static 'bootstrap.min.js' %}"></script>  
   
   
-    {% block title %}{% endblock %}
+    {% block title %}
+    {% endblock %}
 
   <p style = "text-align : right;">Welcome {{ user.username }}</p>  
 
 <div class="rectangle">
   <p>
     <img src="{% static "/images/WMGTSS.png" %}"
-     width="500" height="400" alt="Logo" class="heading" />
+     width="300" height="300" alt="Logo" class="heading" />
   <style>
     .heading {
   position: fixed;
-  top: -150px;
-  left: -100px;
+  top: -100px;
+  left: -50px;
   clear: both;
   display: inline;
   object-fit: contain;
@@ -34,33 +35,26 @@
    </p>
 </div>
 
-
   <!--if user logs on as admin as extra link in navigation bar to the admin site-->
   {% if user.is_superuser %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style = "text-align : right;">
-    <a class="navbar-brand" href="#"></a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="http://127.0.0.1:8000/home">Home <span class="sr-only"></span></a>
-            <a class="nav-item nav-link" href="#"disabled>Profile</a>
-            <a class="nav-item nav-link" href="#"disabled>Messages</a>
-            <a class="nav-item nav-link disabled" href="#"disabled>Settings</a>
-            <a class="nav-item nav-link disabled" href="http://127.0.0.1:8000/admin/">Admin Site</a>
-        </div>
+  <div class="dropdown" style = "text-align : right">
+    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Settings</a>
+      <a href="#">Admin Site</a>
     </div>
-</nav>
-{% else %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style = "text-align : right;">
-  <a class="navbar-brand" href="#"></a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="http://127.0.0.1:8000/home">Home <span class="sr-only"></span></a>
-          <a class="nav-item nav-link" href="#"disabled>Profile</a>
-          <a class="nav-item nav-link" href="#"disabled>Messages</a>
-          <a class="nav-item nav-link disabled" href="#"disabled>Settings</a>
-      </div>
   </div>
-</nav>
+{% else %}
+<div class="dropdown" style = "text-align : right;">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Home</a>
+    <a href="#">Profile</a>
+    <a href="#">Settings</a>
+  </div>
+</div>
 {% endif %}
 
 

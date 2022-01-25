@@ -27,13 +27,11 @@ from django.views.decorators.vary import vary_on_cookie
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from catalog import views 
 import catalog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('catalog', views.index, name='home.html'),
     path('accounts/login', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
     path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),

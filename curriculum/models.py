@@ -72,7 +72,6 @@ class Module(models.Model):
 class Lecture(models.Model):
     lecture_id = models.IntegerField(primary_key =True) 
     lecture_title = models.TextField(max_length=50)
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
     module_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,7 +81,7 @@ class Lecture(models.Model):
     slides = models.FileField(upload_to=save_lecture_slides, verbose_name= "Lecture Slides", blank=True)
 
     class Meta:
-        ordering = ['positon']
+        ordering = ['position']
 
     def __str__(self):
         return self.lecture_title
@@ -145,5 +144,4 @@ class Submission(models.Model):
   email = models.EmailField(max_length=100)
   status = models.CharField(max_length=255)
 
-class Student(models.Model):
-    student_name = models.CharField(max_length=200)
+

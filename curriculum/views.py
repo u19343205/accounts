@@ -1,41 +1,31 @@
 from django.shortcuts import render
-from django.contrib import admin
+from django.urls import reverse_lazy
+from django.views.generic import (TemplateView, DetailView,
+                                    ListView, FormView)
+from curriculum.models import Standard
 from curriculum.forms import QuestionForm
-
-from curriculum.models import  Profile, Course, Module, Assignment, Grade, Question, Student, Submission
-
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Module)
-class ModuleAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Assignment)
-class AssignmentAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Grade)
-class GradeAdmin(admin.ModelAdmin):
-    pass
-
-class QuestionInline(admin.TabularInline):
-  model = Question
-  show_change_link = True
+from curriculum.models import Question
 
 
-class QuestionAdmin(admin.ModelAdmin):
-  model = Question
+class StandardlistView(ListView):
+    model = Standard
+    fields = ('name', 'description')
+    template_name = "standard_list_view.html"
+    success_url = reverse_lazy('certain-view')
 
-class SubmissionAdmin(admin.ModelAdmin):
-   model = Submission
+def get_context_data(self, **kwargs):
+        context = super(StandardlistView, self).get_context_data(**kwargs)
+        context['standard'] = Standard.objects.all()
+        return context
 
+def askquestion(request):
+    context = {}
 
-admin.site.register(Question, QuestionAdmin)
-admin.site.register(Submission, SubmissionAdmin)
-admin.site.register(Student)
+    form = QuestionForm(data=request.POST)
+
+    if form.is_valid():
+        form.save()
+    else:
+        print(form.errors)
+    context['form'] = form
+    return render(request, "curriculum/ask.html", context)

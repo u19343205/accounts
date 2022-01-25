@@ -16,9 +16,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns 
-from django.conf.urls import url, include
+from django.views.generic.base import TemplateView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls import  include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm
@@ -27,22 +27,31 @@ from django.views.decorators.vary import vary_on_cookie
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import (TemplateView, DetailView,
+                                    ListView, FormView)
 import catalog
+from curriculum import views
+from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('catalog.urls')),
+
+
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
+    path('', include('catalog.urls')),
+    path('login/', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
-    path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),
+    #path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),
     path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
     path('test/', TemplateView.as_view(template_name='test.html'), name='WMGTSS Dashboard'),
     path('catalog/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'),
-    
+    path('', include('curriculum.urls')),
 
 
 
-     
+
+
 ]
 #This media handling will old be located here during WMGTSS testing. Throughout production media will be stored on a seperate server
 urlpatterns += staticfiles_urlpatterns()
@@ -51,4 +60,3 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "WMGTSS Admin"
 admin.site.site_title = "WMGTSS Admin Portal"
-

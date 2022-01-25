@@ -8,20 +8,35 @@
 <head>
  <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name = "viewport" content="width =device-width, initial-scale"> 
+<meta name = "viewport" content="width =device-width, initial-scale">
 <link rel="stylesheet" type="text/css" href="{% static 'css/wmgtss.css' %}">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
- {% block header %} Questions and Answers{% endblock %}
+
+ {% block header %} Ask a Question {% endblock %}
 
 {% block content %}
 
 <title>WMGTSS Ask a Question</title>
 
 <body>
-  <h1>Ask a Question</h1>
+  <form method="post">
+  {% csrf_token %}
+  {{ form.as_ul }}
+  <button type="submit">Submit</button>
+  </form>
+  <script>
+    // When the user clicks on <div>, open the popup
+    function myFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    }
+
+    if(document.getElementById('topics').value == "Assignment Related") {
+     //Do something
+}
+    </script>
 
 </body>
 

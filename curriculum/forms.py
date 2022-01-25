@@ -1,15 +1,9 @@
 from django import forms 
 from django.forms import fields
-from curriculum.models import Question, Student
-
+from curriculum.models import Question
 
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields =  (
-            'topics',
-            'subject',
-            'question',
-            'picture',
-            
-        )
+        exclude = ['pub_date']
+     

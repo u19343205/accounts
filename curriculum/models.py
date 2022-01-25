@@ -27,6 +27,7 @@ def save_lecture_slides(instance, filename):
             new_name = str(instance.lecture_id) + str('1')
             filename = 'Lecture_Slides/{}.{}'.format(instance.lecture_id,new_name, ext)
     return os.path.join(upload_to,filename)
+    
 class Standard(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(null=True, blank=True)
@@ -133,7 +134,6 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published', default=now)
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
     ordering = ['-date']
-
 
     def __str__(self):
         return self.subject

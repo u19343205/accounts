@@ -21,48 +21,11 @@
 <title>WMGTSS Ask a Question</title>
 
 <body>
-  <h1>Ask a Question</h1>
-
-  <div class="popup" onclick="myFunction()">Click me!
-    <span class="popuptext" id="myPopup">Popup text...</span>
-  </div>
-  <style media="screen">
-    .hide  {
-        display: none;
-     }
-    </style>
-  
-  <form method="post">
-    {% csrf_token %}
-  
-    {{ form.as_p }}
-    <p><label for="id_topics">Topics:</label> 
-      <select name="topics" id="id_topics">
-      <option value="Assignment Related">Assignment Related</option>
-       <option value="Lecture Related">Lecture Related</option>
-      <option value="General" selected>General</option></select></p>
-      
-    <p><label for="id_subject">Subject:</label> 
-    <textarea name="subject" cols="40" rows="10" maxlength="100" required id="id_subject"> </textarea></p>
-    <p><label for="id_question">Question:</label> 
-    <textarea name="question" cols="40" rows="10" required id="id_question"></textarea></p>
-    <p><label for="id_picture">Question Attachment:</label> 
-      <input type="file" name="picture" accept="image/*" id="id_picture"></p>
-    <p><button type="submit">Submit</button></p>
-   
-  </form>
-  <script>
-    // When the user clicks on <div>, open the popup
-    function myFunction() {
-      var popup = document.getElementById("myPopup");
-      popup.classList.toggle("show");
-    }
-
-    if(document.getElementById('topics').value == "Assignment Related") {
-     //Do something
-}
-    </script>
-
+  <div class="content">
+<button type="button" class="btn btn-danger btn-square-md">Danger</button>
+<button type="button" class="btn btn-warning btn-square-md">Warning</button>
+<button type="button" class="btn btn-info btn-square-md">Info</button>
+    </div>
 </body>
 
 

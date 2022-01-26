@@ -1,0 +1,79 @@
+Create a cloud-based platform for students and tutors to ask questions and tutors to answer questions
+Other boards (calender, resource, notice, quiz and feedback boards will have buttons to access from home page but they will be disabled)
+
+Question will tag whether relevant to assignment, lecture or a general question.
+The date and user question the question will be saved and posted with the question 
+
+required apps: catalog and curriculum
+
+catalog 
+- deal with all user information 
+
+curriculum
+- deal with all curriculum info such as course, module, assignments, lectures, questions and answers
+
+class models: 
+- courses: class, subject, lesson, comments
+- users: custom user model 
+
+USERS: student, tutors, admin 
+
+catalog models
+
+profile:
+- user (one to one with django user model)
+- bio
+- picture
+
+curriculum models: 
+
+course:				
+- course_id (pk)
+- course_name 
+- image
+- course_description
+
+module:				
+- module_id (pk)
+- module_name 			
+- course_id (fk)	
+- teacher (user from django user model)	
+- description 
+
+lecture:
+- lecture_id (pk)
+- lecture_title
+- created by (user - foreign key)
+- created at
+- moudle (fk)
+- lesson_name 
+- position (chapter no.)
+- slides
+
+assignment:
+- id (pk)
+- name 
+- course (fk)
+- module (fk)
+- duedate
+
+question
+- question_id (pk)
+- topic (either assignment, lecture or general)
+- subject
+- question
+- pub_date
+- created_by
+- picture
+
+answer
+- question_id (fk)
+- answer
+- author (fk from user django model)
+- date_added 
+
+comment
+- question_id (fk)
+- comment
+- author (fk from user django model)
+- date_added 

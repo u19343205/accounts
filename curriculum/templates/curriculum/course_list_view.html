@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block content %}
-
-{% for course in courses %}
-            {{course.name}}
+{% for course in standards.courses.all %}
+    {{course.name}}
 {% endfor %}
  
 {% endblock %}

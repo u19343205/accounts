@@ -36,10 +36,8 @@ from catalog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalog.urls')),
-
-
+    path('curriculum/', include('curriculum.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('catalog.urls')),
     path('login/', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
     #path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),

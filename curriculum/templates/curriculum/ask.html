@@ -19,23 +19,13 @@
 {% block content %}
 
 <title>WMGTSS Ask a Question</title>
-
 <body>
-  <form method="post">
+  <form method="post" >
   {% csrf_token %}
   {{ form.as_ul }}
   <button type="submit">Submit</button>
   </form>
-  <script>
-    // When the user clicks on <div>, open the popup
-    function myFunction() {
-      var popup = document.getElementById("myPopup");
-      popup.classList.toggle("show");
-    }
-
-    if(document.getElementById('topics').value == "Assignment Related") {
-     //Do something
-}
+ 
     </script>
 
 </body>
@@ -46,6 +36,7 @@
 </head>
 
 </html>
+
 <!--
 <label for="topic">Topic:</label>
 <select name="topics" id="topics">

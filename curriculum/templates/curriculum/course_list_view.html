@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<ul>
-    
-       {{ standard.name }}
-  
-  </ul>
+
+{% for course in courses %}
+            {{course.name}}
+{% endfor %}
+ 
 {% endblock %}

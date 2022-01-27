@@ -41,22 +41,22 @@ class Standard(models.Model):
         super().save(*args, **kwargs)
 
 class Course(models.Model):
-    course_id = models.CharField(primary_key =True, max_length=50) 
-    course_name = models.TextField(max_length=50)
+    course_id = models.CharField(unique=True, max_length=50) 
+    name = models.TextField(max_length=50)
     slug = models.SlugField(null=True, blank=True)
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE, related_name='courses')
     image = models.ImageField(upload_to=course_rename, blank=True, verbose_name="Course Image")
-    course_description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=500, blank=True)
     
     def __str__(self):
-        return self.course_name
+        return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.course_name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Module(models.Model):
-    module_id = models.IntegerField(primary_key =True) 
+    module_id = models.IntegerField(unique=True, max_length=100) 
     module_name = models.TextField(max_length=50)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
@@ -76,6 +76,7 @@ class Lecture(models.Model):
     module_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
+    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     position = models.PositiveSmallIntegerField(verbose_name="Chapter no.")
     slug = models.SlugField(null=True, blank=True)
@@ -95,14 +96,10 @@ class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 
     name = models.TextField()
     course= models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, default=1)
+    module_id = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='assignments', default = 1)
+    standard = models.ForeignKey(Standard, on_delete=models.CASCADE, default=1)
     duedate = models.DateTimeField()
     
-class Grade(models.Model):
-    grade = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)])
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, default=1)
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, default=1)
 
 def save_rename_question(instance, filename):
     upload_to = 'images'
@@ -130,8 +127,10 @@ class Question(models.Model):
     topics = models.CharField(max_length=20, choices=topics, default=General)
     subject = models.TextField(max_length = 100, null=True)
     question = models.TextField()
+    created_by = models.ForeignKey(User,on_delete=models.CASCADE)
     now = datetime.datetime.now()
-    pub_date = models.DateTimeField('date published', default=now)
+    created_at = models.DateTimeField('date published', default=now)
+    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
     ordering = ['-date']
 
@@ -139,10 +138,7 @@ class Question(models.Model):
         return self.subject
 
 
-class Submission(models.Model):
-  submission = models.ForeignKey(Question, on_delete=models.PROTECT)
-  email = models.EmailField(max_length=100)
-  status = models.CharField(max_length=255)
+
 
 
 class Comment(models.Model):

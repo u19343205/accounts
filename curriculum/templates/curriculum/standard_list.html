@@ -4,7 +4,8 @@
 {% block content %}
 
 {% for standard in standards %}
-<a href = "#">{{standard.name}}</a><br>
+<a href="{% url 'curriculum:course_list' slug=standard.slug %}">{{standard.name}}</a>
+
 {% endfor %}
  
 {% endblock %}

@@ -18,6 +18,12 @@ class CourseListView(DetailView):
     model = Standard
     template_name = 'curriculum/course_list_view.html'
 
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['courses'] = Course.objects.all()
+            print(context)
+            return context
+
 class ModuleListView(DetailView):
     context_object_name = 'courses'
     model = Course

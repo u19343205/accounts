@@ -94,12 +94,17 @@ class Lecture(models.Model):
     
 class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 
-    name = models.TextField()
-    course= models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
-    module_id = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='assignments', default = 1)
+    name = models.TextField(max_length=50)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='assignments', default = 1)
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE, default=1)
     duedate = models.DateTimeField()
     
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 def save_rename_question(instance, filename):
     upload_to = 'images'
@@ -126,8 +131,9 @@ class Question(models.Model):
     ]
     
     topics = models.CharField(max_length=20, choices=topics, default=General)
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', default = 1, )
-    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', default = 1)
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', null=True)
+    subject = models.TextField(max_length = 100, default=topics)
     question = models.TextField()
     created_by = models.ForeignKey(User,on_delete=models.CASCADE)
     now = datetime.datetime.now()
@@ -138,6 +144,10 @@ class Question(models.Model):
 
     def __str__(self):
         return self.subject
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.subject)
+        super().save(*args, **kwargs)
 
 
 

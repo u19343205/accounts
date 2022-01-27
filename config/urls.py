@@ -41,7 +41,6 @@ urlpatterns = [
     path('login/', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
     #path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),
-    path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
     path('test/', TemplateView.as_view(template_name='test.html'), name='WMGTSS Dashboard'),
     path('catalog/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'),
     path('', include('curriculum.urls')),

@@ -3,8 +3,23 @@
 
 {% block content %}
 
-{% for module in modules %}
-    {{module.name}}
+{% for questions in modules.questions.all%}
+<title>WMGTSS Ask a Question</title>
+<body>
+  <form method="post" >
+  {% csrf_token %}
+  {{ form.as_ul }}
+  <button type="submit">Submit</button>
+  </form>
+ 
+
+
+</body>
 {% endfor %}
  
 {% endblock %}
+
+
+</head>
+
+</html>

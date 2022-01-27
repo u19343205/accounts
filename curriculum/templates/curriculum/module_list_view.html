@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block content %}
-
-{% for module in courses.modules.all%}
-<a href = "{% url 'curriculum:module_list' slug=course.slug standard=standards.slug %}">{{module.module_id}}
+{% for module in courses.modules.all %}
+<a href = "#">{{module.module_id}}
     {{module.name}}
 </a>
 {% endfor %}

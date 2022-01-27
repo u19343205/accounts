@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import (TemplateView, DetailView,
                                     ListView, CreateView,
-                                    UpdateView,DeleteView,FormView,)
+                                    UpdateView,DeleteView,FormView, TemplateView)
 from .models import Standard, Course, Module, Question
 from django.urls import reverse_lazy, reverse
 from .forms import CommentForm,AnswerForm, QuestionForm
@@ -23,21 +23,24 @@ class ModuleListView(DetailView):
     model = Course
     template_name = 'curriculum/module_list_view.html'
 
-    def get_success_url(self):
-            self.object = self.get_object()
-            standard = self.object.Standard
-            course = self.object.course
-            return reverse_lazy('curriculum:lesson_detail',kwargs={'standard':standard.slug,
-                                                                'subject':course.slug,
-                                                             'slug':self.object.slug})
 
-
-class QuestionListView(DetailView):
+class QuestionListView(ListView):
     context_object_name = 'modules'
     model = Module
     template_name = 'curriculum/question_list_view.html'
 
+def askquestion(request):
+        context = {}
 
+        form = QuestionForm(data=request.POST)
+        
+
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+        context['form'] = form
+        return render(request, "curriculum/question_list_view.html", context)
 
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'question'

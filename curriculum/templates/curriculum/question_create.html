@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %} Questions and Answers{% endblock %}
+{% block content %}
+
+<form method="post" >
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <button type="submit">Submit</button>
+    </form>
+   
+ 
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %} Questions and Answers{% endblock %}
+{% block content %}
+
+<title>Q&A |WMGTSS </title>
+
+
+
+{% for question in modules.questions.all %}
+<p> submitted by {{object.created_by}} on {{object.created_at}}</p>
+<hr>
+<p>Subject: {{object.subject}}</p> 
+<p>Question: {{object.question}}</p>
+<p>Uploaded: {{object.picture}}</p>
+
+<br>
+{% endfor %}
+ 
+{% endblock %}
+
+</body>

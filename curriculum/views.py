@@ -22,25 +22,22 @@ class QuestionListView(DetailView):
     model = Module
     template_name = 'curriculum/question_list_view.html'
 
-def askquestion(request):
-        context = {}
+def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.Course
+        module= self.object.Module
+        return reverse_lazy('curriculum:lesson_detail',kwargs={'course':course.slug,
+                                                             'module':module.slug,
+                                                             'slug':self.object.slug})
 
-        form = QuestionForm(data=request.POST)
-        
 
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
-        context['form'] = form
-        return render(request, "curriculum/ask.html", context)
-
-class QuestionDetailView(DetailView, FormView):
-    context_object_name = 'question'
+class QuestionDetailView(DetailView):
+    context_object_name = 'questions'
     model = Question
-    template_name = 'curriculum/question_detail_view.html'
-    form_class = CommentForm
-    second_form_class = AnswerForm
+    template_name = 'curriculum/question_detail.html'
+    slug_url_kwarg = 'slug'
+    #form_class = CommentForm
+    #second_form_class = AnswerForm
 
     def get_context_data(self, **kwargs):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
@@ -73,13 +70,7 @@ class QuestionDetailView(DetailView, FormView):
             return self.form2_valid(form)
 
 
-    def get_success_url(self):
-        self.object = self.get_object()
-        standard = self.object.Standard
-        subject = self.object.subject
-        return reverse_lazy('curriculum:lesson_detail',kwargs={'standard':standard.slug,
-                                                             'subject':subject.slug,
-                                                             'slug':self.object.slug})
+    
     def form_valid(self, form):
         self.object = self.get_object()
         fm = form.save(commit=False)
@@ -99,16 +90,15 @@ class QuestionDetailView(DetailView, FormView):
 
 
 class QuestionCreateView(CreateView):
-    # fields = ('lesson_id','name','position','image','video','ppt','Notes')
     form_class = QuestionForm
-    context_object_name = 'subject'
-    model= Course
+    context_object_name = 'module'
+    model= Module
     template_name = 'curriculum/question_create.html'
 
     def get_success_url(self):
         self.object = self.get_object()
-        standard = self.object.standard
-        return reverse_lazy('curriculum:question_list',kwargs={'standard':standard.slug,
+        course = self.object.course
+        return reverse_lazy('curriculum:question_list',kwargs={'course':course.slug,
                                                              'slug':self.object.slug})
 
 
@@ -116,8 +106,8 @@ class QuestionCreateView(CreateView):
         self.object = self.get_object()
         fm = form.save(commit=False)
         fm.created_by = self.request.user
-        fm.Standard = self.object.standard
-        fm.subject = self.object
+        fm.course = self.object.course
+        fm.module = self.object
         fm.save()
         return HttpResponseRedirect(self.get_success_url())
 

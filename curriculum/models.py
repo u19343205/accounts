@@ -105,8 +105,8 @@ def save_rename_question(instance, filename):
     ext = filename.split('.')[-1]
 
     #retreive filename
-    if instance.user.username:
-        filename = 'Question_Attachment/{}.{}'.format(instance.user.username, ext)
+    if instance.created_by.username:
+        filename = 'Question_Attachment/{}.{}'.format(instance.created_by.username, ext)
     return os.path.join(upload_to,filename)
 
 class Question(models.Model):
@@ -129,10 +129,10 @@ class Question(models.Model):
     #assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
     #lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', null=True)
     question = models.TextField()
-    created_by = models.ForeignKey(User,on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User,on_delete=models.CASCADE, null=False)
     now = datetime.datetime.now()
     created_at = models.DateTimeField('date published', default=now)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
     ordering = ['-date']
 

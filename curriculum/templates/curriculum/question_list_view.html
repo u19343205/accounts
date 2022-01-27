@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block header %} Questions and Answers{% endblock %}
 {% block content %}
+
+<title>Q&A |WMGTSS </title>
+
+<body>
+    <div class="content" style= "text-align: left;">
+        <a href="{% url 'curriculum:question_create' course=modules.course.slug slug=modules.slug %}"><button type="button"  class= "btn-square-xl" >Ask a Question</button></a>
+        </div>
+<h1>Submitted Questions</h1>
 {% for question in modules.questions.all %}
-    {{question.subject}}
-    {{question.question}}
+<a href="#" >
+    Question: {{question.question}} </a>
+<br>
 {% endfor %}
+
  
 {% endblock %}
+
+</body>

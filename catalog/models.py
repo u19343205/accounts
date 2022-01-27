@@ -23,7 +23,8 @@ def save_rename(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=200, blank=True)
-    #date = models.DateField(default=datetime.date.today)
+    today = datetime.datetime.today()
+    dob = models.DateField('date of birthd', default=today)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='profiles', default=1)
     picture = models.ImageField(upload_to=save_rename, verbose_name ="Profile Picture", blank=True)
 

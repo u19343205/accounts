@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% for question in modules.questions.all %}
+{question.subject}}
+{question.question}}
+{% endfor %}
+ 
+{% endblock %}

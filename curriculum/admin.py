@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import admin
 from curriculum.forms import QuestionForm
 
-from curriculum.models import Course, Module, Assignment, Lecture,  Question, Standard
+from curriculum.models import Course, Module, Question
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -10,10 +10,6 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Assignment)
-class AssignmentAdmin(admin.ModelAdmin):
     pass
 
 class QuestionInline(admin.TabularInline):
@@ -26,7 +22,6 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Standard)
-admin.site.register(Lecture)
+#admin.site.register(Standard)
 
 

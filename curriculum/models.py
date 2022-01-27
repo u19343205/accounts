@@ -27,7 +27,7 @@ def save_lecture_slides(instance, filename):
             new_name = str(instance.lecture_id) + str('1')
             filename = 'Lecture_Slides/{}.{}'.format(instance.lecture_id,new_name, ext)
     return os.path.join(upload_to,filename)
-    
+'''  
 class Standard(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(null=True, blank=True)
@@ -39,12 +39,12 @@ class Standard(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+ '''  
 
 class Course(models.Model):
     course_id = models.CharField(unique=True, max_length=50) 
     name = models.TextField(max_length=50)
     slug = models.SlugField(null=True, blank=True)
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE, related_name='courses')
     image = models.ImageField(upload_to=course_rename, blank=True, verbose_name="Course Image")
     description = models.TextField(max_length=500, blank=True)
     
@@ -58,8 +58,7 @@ class Course(models.Model):
 class Module(models.Model):
     module_id = models.IntegerField(unique=True, max_length=100) 
     name = models.TextField(max_length=50)
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(null=True, blank=True)
 
@@ -69,21 +68,16 @@ class Module(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-
+'''
 class Lecture(models.Model):
     lecture_id = models.IntegerField(primary_key =True) 
     lecture_title = models.TextField(max_length=50)
     module_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    position = models.PositiveSmallIntegerField(verbose_name="Chapter no.")
     slug = models.SlugField(null=True, blank=True)
     slides = models.FileField(upload_to=save_lecture_slides, verbose_name= "Lecture Slides", blank=True)
-
-    class Meta:
-        ordering = ['position']
 
     def __str__(self):
         return self.lecture_title
@@ -96,7 +90,7 @@ class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 
     name = models.TextField(max_length=50)
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='assignments', default = 1)
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE, default=1)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments', default = 1)
     duedate = models.DateTimeField()
     
     def __str__(self):
@@ -105,7 +99,7 @@ class Assignment(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-
+'''
 def save_rename_question(instance, filename):
     upload_to = 'images'
     ext = filename.split('.')[-1]
@@ -116,7 +110,8 @@ def save_rename_question(instance, filename):
     return os.path.join(upload_to,filename)
 
 class Question(models.Model):
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='question', default = 1)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='questions', default = 1)
+    subject = models.TextField(max_length = 100, default='WMGTSS Question')
     
     #module = models.OneToOneField(Module, on_delete=models.CASCADE, default=0)
     Assignment_Related = 'Assignment Related'
@@ -131,14 +126,13 @@ class Question(models.Model):
     ]
     
     topics = models.CharField(max_length=20, choices=topics, default=General)
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
-    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', null=True)
-    subject = models.TextField(max_length = 100, default=topics)
+    #assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
+    #lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', null=True)
     question = models.TextField()
     created_by = models.ForeignKey(User,on_delete=models.CASCADE)
     now = datetime.datetime.now()
     created_at = models.DateTimeField('date published', default=now)
-    standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1)
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
     ordering = ['-date']
 

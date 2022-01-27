@@ -2,20 +2,14 @@ from django.shortcuts import render
 from django.views.generic import (TemplateView, DetailView,
                                     ListView, CreateView,
                                     UpdateView,DeleteView,FormView, TemplateView)
-from .models import Standard, Course, Module, Question
+from .models import Course, Module, Question
 from django.urls import reverse_lazy, reverse
 from .forms import CommentForm,AnswerForm, QuestionForm
 from django.http import HttpResponseRedirect
 
-
-class StandardListView(ListView):
-    context_object_name = 'standards'
-    model = Standard
-    template_name = 'curriculum/standard_list_view.html'
-
-class CourseListView(DetailView):
-    context_object_name = 'standards'
-    model = Standard
+class CourseListView(ListView):
+    context_object_name = 'courses'
+    model = Course
     template_name = 'curriculum/course_list_view.html'
 
 class ModuleListView(DetailView):
@@ -23,8 +17,7 @@ class ModuleListView(DetailView):
     model = Course
     template_name = 'curriculum/module_list_view.html'
 
-
-class QuestionListView(ListView):
+class QuestionListView(DetailView):
     context_object_name = 'modules'
     model = Module
     template_name = 'curriculum/question_list_view.html'
@@ -45,7 +38,7 @@ def askquestion(request):
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'question'
     model = Question
-    template_name = 'curriculum/lesson_detail_view.html'
+    template_name = 'curriculum/question_detail_view.html'
     form_class = CommentForm
     second_form_class = AnswerForm
 

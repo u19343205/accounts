@@ -3,7 +3,9 @@
 
 {% block content %}
 {% for course in standards.courses.all %}
-{{course.name}}
- 
+    <a href = "{% url 'curriculum:question_list' slug=module.slug course=courses.slug standard=standards.slug %}"> {{course.course_id}}
+    {{course.name}}</a>
+   <p> {{courses.description|truncatechars:100}}</p><br>
+</a
 {% endfor %}
 {% endblock %}

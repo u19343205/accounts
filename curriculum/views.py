@@ -3,7 +3,7 @@ from django.views.generic import (TemplateView, DetailView,
                                     ListView, CreateView,
                                     UpdateView,DeleteView,FormView,)
 from .models import Standard, Course, Module, Question
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .forms import CommentForm,AnswerForm, QuestionForm
 from django.http import HttpResponseRedirect
 
@@ -18,21 +18,26 @@ class CourseListView(DetailView):
     model = Standard
     template_name = 'curriculum/course_list_view.html'
 
-    def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context['courses'] = Course.objects.all()
-            print(context)
-            return context
-
 class ModuleListView(DetailView):
     context_object_name = 'courses'
     model = Course
     template_name = 'curriculum/module_list_view.html'
 
+    def get_success_url(self):
+            self.object = self.get_object()
+            standard = self.object.Standard
+            course = self.object.course
+            return reverse_lazy('curriculum:lesson_detail',kwargs={'standard':standard.slug,
+                                                                'subject':course.slug,
+                                                             'slug':self.object.slug})
+
+
 class QuestionListView(DetailView):
     context_object_name = 'modules'
     model = Module
     template_name = 'curriculum/question_list_view.html'
+
+
 
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'question'

@@ -57,17 +57,17 @@ class Course(models.Model):
 
 class Module(models.Model):
     module_id = models.IntegerField(unique=True, max_length=100) 
-    module_name = models.TextField(max_length=50)
+    name = models.TextField(max_length=50)
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules')
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):
-        return self.module_name
+        return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.module_name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
 class Lecture(models.Model):
@@ -111,6 +111,7 @@ def save_rename_question(instance, filename):
     return os.path.join(upload_to,filename)
 
 class Question(models.Model):
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='question', default = 1)
     
     #module = models.OneToOneField(Module, on_delete=models.CASCADE, default=0)
     Assignment_Related = 'Assignment Related'
@@ -125,7 +126,8 @@ class Question(models.Model):
     ]
     
     topics = models.CharField(max_length=20, choices=topics, default=General)
-    subject = models.TextField(max_length = 100, null=True)
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', default = 1, )
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', default = 1)
     question = models.TextField()
     created_by = models.ForeignKey(User,on_delete=models.CASCADE)
     now = datetime.datetime.now()

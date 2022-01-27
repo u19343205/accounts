@@ -2,10 +2,11 @@ from django import forms
 from django.forms import fields
 from curriculum.models import Question, Comment, Answer 
 
+
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        exclude = ['pub_date']
+        exclude = ['created_by', 'standard', 'created_at']
 
 class CommentForm(forms.ModelForm):
     class Meta:

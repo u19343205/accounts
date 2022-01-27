@@ -40,7 +40,7 @@ def askquestion(request):
         else:
             print(form.errors)
         context['form'] = form
-        return render(request, "curriculum/question_list_view.html", context)
+        return render(request, "curriculum/ask.html", context)
 
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'question'

@@ -7,8 +7,7 @@ import os
 import datetime
 import time
 from datetime import timedelta
-
-from django.utils.translation import deactivate_all
+from curriculum.models import Course
 
 
 #function to define the renaming of images when users upload a picture to their question submission to WMGTSS
@@ -24,6 +23,8 @@ def save_rename(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=200, blank=True)
+    #date = models.DateField(default=datetime.date.today)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='profiles', default=1)
     picture = models.ImageField(upload_to=save_rename, verbose_name ="Profile Picture", blank=True)
 
     def __str__(self):

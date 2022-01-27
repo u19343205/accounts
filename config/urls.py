@@ -37,7 +37,7 @@ urlpatterns = [
     path('', include('catalog.urls')),
     path('curriculum/', include('curriculum.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
+    #path('login/', TemplateView.as_view(template_name='login.html'), name='WMGTSS Login'),
     path('home/', TemplateView.as_view(template_name='home.html'), ), #Dashboard Link
     #path('ask/', TemplateView.as_view(template_name='ask.html'), name='Ask Your Question'),
     path('test/', TemplateView.as_view(template_name='test.html'), name='WMGTSS Dashboard'),

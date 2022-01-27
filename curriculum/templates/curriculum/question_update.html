@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block header %} Questions and Answers{% endblock %}
 {% block content %}
 
-{% for module in modules %}
-    {{module.name}}
-{% endfor %}
+<form method="post" >
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <button type="submit">Submit</button>
+    </form>
+
  
 {% endblock %}

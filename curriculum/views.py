@@ -34,11 +34,14 @@ def get_success_url(self):
 class QuestionDetailView(DetailView):
     context_object_name = 'questions'
     model = Question
-    template_name = 'curriculum/question_detail.html'
+    template_name = 'curriculum/question_detail_view.html'
     slug_url_kwarg = 'slug'
     #form_class = CommentForm
     #second_form_class = AnswerForm
 
+    def get_absolute_url(self):
+        return reverse('curriculum:question_detail', kwargs={'slug':self.slug, 'question':self.question})
+'''
     def get_context_data(self, **kwargs):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
         if 'form' not in context:
@@ -87,7 +90,7 @@ class QuestionDetailView(DetailView):
         fm.comment_name_id = self.request.POST.get('comment.id')
         fm.save()
         return HttpResponseRedirect(self.get_success_url())
-
+'''
 
 class QuestionCreateView(CreateView):
     form_class = QuestionForm
@@ -124,6 +127,6 @@ class QuestionDeleteView(DeleteView):
 
     def get_success_url(self):
         print(self.object)
-        standard = self.object.Standard
-        subject = self.object.subject
-        return reverse_lazy('curriculum:question_list',kwargs={'standard':standard.slug,'slug':subject.slug})
+        course = self.object.course
+        module = self.object.module
+        return reverse_lazy('curriculum:question_list',kwargs={'course':course.slug,'slug':module.slug})

@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UsernameField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy, reverse
 
 def course_rename(instance, filename):
     upload_to = 'images/'
@@ -142,6 +143,8 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.subject)
         super().save(*args, **kwargs)
+    def get_absolute_url(self):
+        return reverse('curriculum:question_detail', kwargs={'slug':self.slug, 'question':self.question})
 
 
 

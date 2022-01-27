@@ -3,7 +3,7 @@
 {% block header %} Questions and Answers{% endblock %}
 {% block content %}
 
-<title>Q&A |WMGTSS </title>
+<title>Q&A | WMGTSS </title>
 
 <body>
     <div class="content" style= "text-align: left;">
@@ -12,7 +12,7 @@
 <h1>Submitted Questions</h1>
 {% for question in modules.questions.all %}
 <a href="#" >
-    Question: {{question.question}} </a>
+    {{question.subject}}: {{question.question}} | asked on {{question.created_at}} by {{question.created_by}} </a>
 <br>
 {% endfor %}
 

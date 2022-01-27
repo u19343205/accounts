@@ -3,9 +3,9 @@
 {% block header %} Questions and Answers{% endblock %}
 {% block content %}
 
-<form method="post" >
+<form method="post" style ="list-style:none;" >
     {% csrf_token %}
-    {{ form.as_ul }}
+    {{ form.as_ul}}
     <button type="submit">Submit</button>
     </form>
    

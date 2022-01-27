@@ -8,7 +8,7 @@ app_name = 'curriculum'
 
 urlpatterns = [
 
-    path('ask/', views.askquestion, name ='ask a question'),
+    path('qna/ask/', views.askquestion, name ='ask a question'),
     path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
     path('', views.StandardListView.as_view(), name='standard_list'),
     path('<slug:slug>/', views.CourseListView.as_view(), name='course_list'),

@@ -11,7 +11,7 @@
         </div>
 <h1>Submitted Questions</h1>
 {% for question in modules.questions.all %}
-<a href="#" >
+<a href="{% url 'curriculum:question_detail' slug=question.slug module=modules.slug course=question.course.slug %}" >
     {{question.subject}}: {{question.question}} | asked on {{question.created_at}} by {{question.created_by}} </a>
 <br>
 {% endfor %}

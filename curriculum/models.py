@@ -69,6 +69,18 @@ class Module(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+def save_question_uploades(instance, filename):
+    upload_to = 'Images/'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.subject:
+        filename = 'Question_Uploaded/{}/{}.{}'.format(instance.subject,instance.subject, ext)
+        if os.path.exists(filename):
+            new_name = str(instance.subject) + str('1')
+            filename =  'lesson_images/{}/{}.{}'.format(instance.subject,new_name, ext)
+    return os.path.join(upload_to, filename)
 '''
 class Lecture(models.Model):
     lecture_id = models.IntegerField(primary_key =True) 
@@ -112,7 +124,7 @@ def save_rename_question(instance, filename):
 
 class Question(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='questions', default = 1)
-    subject = models.TextField(max_length = 100, default='WMGTSS Question')
+    subject = models.CharField(max_length = 100)
     
     #module = models.OneToOneField(Module, on_delete=models.CASCADE, default=0)
     Assignment_Related = 'Assignment Related'
@@ -135,6 +147,7 @@ class Question(models.Model):
     created_at = models.DateTimeField('date published', default=now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
+    slug = models.SlugField(null=True, blank=True)
     ordering = ['-date']
 
     def __str__(self):
@@ -143,9 +156,9 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.subject)
         super().save(*args, **kwargs)
-    def get_absolute_url(self):
-        return reverse('curriculum:question_detail', kwargs={'slug':self.slug, 'question':self.question})
 
+    def get_absolute_url(self):
+        return reverse('curriculum:question_list', kwargs={'slug':self.module.slug, 'course':self.course.slug})
 
 
 

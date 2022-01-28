@@ -122,7 +122,7 @@ class QuestionUpdateView(UpdateView):
 
 class QuestionDeleteView(DeleteView):
     model= Question
-    context_object_name = 'question'
+    context_object_name = 'questions'
     template_name = 'curriculum/question_delete.html'
 
     def get_success_url(self):

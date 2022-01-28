@@ -19,7 +19,7 @@ submitted by {{object.created_by}} on {{object.created_at}}
 {% endif %}
 
 <a href = "{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Update Question </a>
-
+<a href = "{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Delete Question </a>
 {% endblock %}
 
 </body>

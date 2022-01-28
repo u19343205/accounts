@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block header %} Questions and Answers{% endblock %}
+{% block header %} Question{% endblock %}
 {% block content %}
 
 <title>Q&A | WMGTSS </title>
 
 <body>
 
-{{object.question}} | asked on {{object.created_at}} by {{object.created_by}}
+submitted by {{object.created_by}} on {{object.created_at}}
+<hr>
+<p> Subject:{{object.subject}}</p>
+<p> Question:{{object.question}}</p>
+{% csrf_token %}
 
+{% if request.user.is_staff %}
+<p> Uploaded: {{question.picture}}</p>
+{% endif %}
 
- 
+<a href = "{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Update Question </a>
+
 {% endblock %}
 
 </body>

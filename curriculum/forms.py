@@ -6,7 +6,7 @@ from curriculum.models import Question, Comment, Answer
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        exclude = ['created_by', 'standard', 'created_at', 'course']
+        exclude = ['created_by', 'standard', 'created_at', 'course', 'slug']
 
 class CommentForm(forms.ModelForm):
     class Meta:

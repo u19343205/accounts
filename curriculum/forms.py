@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields
-from curriculum.models import Question, Comment, Answer 
+from curriculum.models import Question, Answer 
 
 
 class QuestionForm(forms.ModelForm):
@@ -8,17 +8,12 @@ class QuestionForm(forms.ModelForm):
         model = Question
         exclude = ['created_by', 'standard', 'created_at', 'course', 'slug']
 
-class CommentForm(forms.ModelForm):
+class AnswerForm(forms.ModelForm):
     class Meta:
-        model = Comment
-        fields = ('body',)
+        model = Answer
+        fields = "__all__"
 
-        labels = {"body":"Comment:"}
-
-        widgets = {
-            'body': forms.Textarea(attrs={'class':'form-control', 'rows':4, 'cols':70, 'placeholder':"Enter Your Comment"}),
-        }
-
+'''
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
@@ -31,3 +26,4 @@ class AnswerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(AnswerForm, self).__init__(*args, **kwargs)
+'''

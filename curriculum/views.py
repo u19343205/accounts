@@ -4,7 +4,7 @@ from django.views.generic import (TemplateView, DetailView,
                                     UpdateView,DeleteView,FormView, TemplateView)
 from .models import Course, Module, Question
 from django.urls import reverse_lazy, reverse
-from .forms import CommentForm,AnswerForm, QuestionForm
+from .forms import AnswerForm, QuestionForm
 from django.http import HttpResponseRedirect
 
 class CourseListView(ListView):
@@ -34,54 +34,58 @@ def get_success_url(self):
 class QuestionDetailView(DetailView):
     context_object_name = 'questions'
     model = Question
+    form_class = AnswerForm
     template_name = 'curriculum/question_detail_view.html'
-    slug_url_kwarg = 'slug'
-    #form_class = CommentForm
+
+    
     #second_form_class = AnswerForm
 
-    def get_absolute_url(self):
-        return reverse('curriculum:question_detail', kwargs={'slug':self.slug, 'question':self.question})
-'''
+    def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.course
+        module = self.object.module
+        return reverse_lazy('curriculum:question_detail',kwargs={'course':course.slug,
+                                                             'module':module.slug,
+                                                             'slug':self.object.slug})
+
     def get_context_data(self, **kwargs):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
-        if 'form' not in context:
-            context['form'] = self.form_class(request=self.request)
-        if 'form2' not in context:
-            context['form2'] = self.second_form_class(request=self.request)
-        # context['comments'] = Comment.objects.filter(id=self.object.id)
         return context
+
+    def form_valid(self, form):
+            self.object = self.get_object()
+            fm = form.save(commit=False)
+            fm.author = self.request.user
+            fm.question = self.object.answer
+            fm.save()
+            return HttpResponseRedirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if 'form' in request.POST:
             form_class = self.get_form_class()
             form_name = 'form'
+        form = self.get_form(form_class)
+''' 
         else:
             form_class = self.second_form_class
             form_name = 'form2'
 
-        form = self.get_form(form_class)
+
+        
         # print("the form name is : ", form)
         # print("form name: ", form_name)
         # print("form_class:",form_class)
 
         if form_name=='form' and form.is_valid():
-            print("commented")
+            print("answered")
             return self.form_valid(form)
+'''  
+      
+'''
         elif form_name=='form2' and form.is_valid():
             print("answered")
             return self.form2_valid(form)
-
-
-    
-    def form_valid(self, form):
-        self.object = self.get_object()
-        fm = form.save(commit=False)
-        fm.author = self.request.user
-        fm.question = self.object.comments.name
-        fm.question_id = self.object.id
-        fm.save()
-        return HttpResponseRedirect(self.get_success_url())
 
     def form2_valid(self, form):
         self.object = self.get_object()
@@ -91,7 +95,6 @@ class QuestionDetailView(DetailView):
         fm.save()
         return HttpResponseRedirect(self.get_success_url())
 '''
-
 class QuestionCreateView(CreateView):
     form_class = QuestionForm
     context_object_name = 'module'

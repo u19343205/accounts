@@ -30,16 +30,36 @@ def get_success_url(self):
                                                              'module':module.slug,
                                                              'slug':self.object.slug})
 
-
 class QuestionDetailView(DetailView):
     context_object_name = 'questions'
     model = Question
     form_class = AnswerForm
     template_name = 'curriculum/question_detail_view.html'
 
-    
-    #second_form_class = AnswerForm
+    def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.course
+        module = self.object.module
+        return reverse_lazy('curriculum:question_detail',kwargs={'course':course.slug,
+                                                                 'module':module.slug,
+                                                                 'slug':self.object.slug})
 
+    def form_valid(self, form, *args, **kwargs):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.author = self.request.user
+        fm.course = self.object.course
+        fm.module = self.object
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+'''
     def get_success_url(self):
         self.object = self.get_object()
         course = self.object.course
@@ -66,7 +86,7 @@ class QuestionDetailView(DetailView):
             form_class = self.get_form_class()
             form_name = 'form'
         form = self.get_form(form_class)
-''' 
+ 
         else:
             form_class = self.second_form_class
             form_name = 'form2'
@@ -80,9 +100,7 @@ class QuestionDetailView(DetailView):
         if form_name=='form' and form.is_valid():
             print("answered")
             return self.form_valid(form)
-'''  
-      
-'''
+ 
         elif form_name=='form2' and form.is_valid():
             print("answered")
             return self.form2_valid(form)
@@ -106,7 +124,6 @@ class QuestionCreateView(CreateView):
         course = self.object.course
         return reverse_lazy('curriculum:question_list',kwargs={'course':course.slug,
                                                              'slug':self.object.slug})
-
 
     def form_valid(self, form, *args, **kwargs):
         self.object = self.get_object()

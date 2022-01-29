@@ -20,7 +20,11 @@ submitted by {{object.created_by}} on {{object.created_at}}
 
 <a href = "{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Update Question </a>
 <a href = "{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Delete Question </a>
-
+<br>
+{% for answer in questions.answers.all %}
+Answered by {{answer.author}} on {{answer.date_added}}<br>
+Answer:{{answer.body}}
+{% endfor %}
 
 <h4>Answer the question below</h4>
 <form method="post" style ="list-style:none;" >
@@ -30,10 +34,7 @@ submitted by {{object.created_by}} on {{object.created_at}}
     </form>
 </div>
 
-{% for answer in answers %}
-{{answer.author}} on {{answer.date_added}}<br>
-{{answer.body}}
-{% endfor %}
+
 
 {% endblock %}
 

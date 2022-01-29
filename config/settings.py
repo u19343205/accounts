@@ -36,10 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'curriculum',
-
-    
-  
+    'crispy_forms',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  
+  
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

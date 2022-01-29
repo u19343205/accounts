@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block header %} Question{% endblock %}
 {% block content %}
@@ -14,10 +15,16 @@ submitted by {{object.created_by}} on {{object.created_at}}
 <p> Question:{{object.question}}</p>
 {% csrf_token %}
 
+<br>
+{% for answer in questions.answers.all %}
+
+Answered by {{answer.author}} on {{answer.date_added}}<br>
+Answer:{{answer.body}}
+<br>
+
+{% endfor %}
 {% if request.user.is_staff %}
 <p> Uploaded: {{question.picture}}</p>
-{% endif %}
-
 
 <br>
 
@@ -29,18 +36,10 @@ submitted by {{object.created_by}} on {{object.created_at}}
     <h4>Answer the question below</h4>
     <form method="post" style ="list-style:none;" >
         {% csrf_token %}
-        {{ form.as_ul}}
+        {{ form|crispy}}
         <input type ='submit' name ='answer' value ='Answer Question'>
         </form>
-
-{% for answer in questions.answers.all %}
-
-Answered by {{answer.author}} on {{answer.date_added}}<br>
-Answer:{{answer.body}}
-<br>
-
-{% endfor %}
-    
+{% endif %}
 {% endblock %}
 
-</body>
+

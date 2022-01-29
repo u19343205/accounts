@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields
-from curriculum.models import Question, Answer 
+from curriculum.models import Question, Answer, Comment, Reply
 
 
 class QuestionForm(forms.ModelForm):
@@ -13,17 +13,26 @@ class AnswerForm(forms.ModelForm):
         model = Answer
         fields = ['body']
 
-'''
-class AnswerForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
-        model = Answer
-        fields = ('answer_body',)
+        model = Comment
+        fields = ('body',)
+
+        labels = {"body":"Comment:"}
 
         widgets = {
-            'answer_body': forms.Textarea(attrs={'class':'form-control', 'rows':2, 'cols':10}),
+            'body': forms.Textarea(attrs={'class':'form-control', 'rows':4, 'cols':70, 'placeholder':"Enter Your Comment"}),
+        }
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ('reply_body',)
+
+        widgets = {
+            'reply_body': forms.Textarea(attrs={'class':'form-control', 'rows':2, 'cols':10}),
         }
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
-        super(AnswerForm, self).__init__(*args, **kwargs)
-'''
+        super(ReplyForm, self).__init__(*args, **kwargs)

@@ -2,7 +2,16 @@
 {% load static %}
 
 {% block content %}
-<h3 class="mb-4" style="color:#ff5722;">Are you sure you want to delete?</h3>
+<nav aria-label="breadcrumb" style = "width: 150%; align-self: center;">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="#">Courses</a></li>
+          <li class="breadcrumb-item"><a href="#">Modules</a></li>
+          <li class="breadcrumb-item"><a href="#">Questions</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Delete</li>
+        </ol>
+      </nav>
+<h3 class="mb-4" style="color:rgb(5, 70, 62);">Are you sure you want to delete?</h3>
 
 <form method="post">
   {% csrf_token %}
@@ -11,7 +20,7 @@
                 <input type="submit" value="Delete" class="btn btn-danger btn-block">
         </div>
         <div class="col-md-4 mb-3 mr-3">
-                <a href="{% url 'curriculum:question_detail' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-warning btn-block">Cancel Deletion</a>
+                <a href="{% url 'curriculum:question_detail' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-warning btn-block">Cancel Delete</a>
         </div>
   </div>
 </form>

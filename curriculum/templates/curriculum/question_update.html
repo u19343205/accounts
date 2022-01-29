@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %} Questions and Answers{% endblock %}
-{% block content %}
 
+{% block content %}
+{% block title %} Update Question {% endblock %}
+<nav aria-label="breadcrumb" style = "width: 150%; align-self: center;">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="#">Courses</a></li>
+      <li class="breadcrumb-item"><a href="#">Modules</a></li>
+      <li class="breadcrumb-item"><a href="#">Questions</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Update</li>
+    </ol>
+  </nav>
 <form method="post" style ="list-style:none;" >
     {% csrf_token %}
     {{ form.as_ul}}

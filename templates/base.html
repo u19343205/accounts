@@ -84,7 +84,7 @@
       <div class="row d-flex justify-content-center text-center">
         <div class="col-md-10 text-black">
           <!-- heading -->
-          <h2 class="display-4 font-weight-bold  p-5 " style="color:rgb(5, 70, 62); margin-top: 1.5ch;" >  {% block title %}{% endblock %}</h2>
+          <h2 class="display-5 font-weight-bold  p-5 " style="color:rgb(5, 70, 62); margin-top: 2ch;" >  {% block title %}{% endblock %}</h2>
 <div class="container" align = "center";>
   <div class= header>
   
@@ -98,6 +98,8 @@
 </head>
 
 <main>
+  {% block image_block %}
+  {% endblock %} 
   {% block content %}
 
   {% endblock %} 
@@ -107,7 +109,7 @@
   <div class="footer">
       <p style ="text-indent: 40px">You are logged in as {{user.username}} | 
         <a href="{% url 'login' %}"> Log Out</a>
-      |           © 2020 Copyright: wmgtss.com
+      |           © 2020 Copyright: U1943205@wmgtss.com
       </p>
     </div>
   </footer>

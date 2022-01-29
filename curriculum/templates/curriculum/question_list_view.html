@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block header %} Questions and Answers{% endblock %}
+{% block title %} Questions {% endblock %}
 {% block content %}
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="#">Courses</a></li>
+      <li class="breadcrumb-item"><a href="#">Modules</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Questions</li>
+    </ol>
+  </nav>
 <title>Q&A | WMGTSS </title>
 
 <body>

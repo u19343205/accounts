@@ -1,5 +1,6 @@
 body {
     font-family: Georgia, serif;
+    color: #555;
   }
 
   .rectangle {
@@ -13,13 +14,21 @@ body {
     text-align: center;
     z-index:-1; 
    }
-
+   
+   .h2 {
+    
+    color: rgb(5, 70, 62);
+    display: inline-block;
+    padding: -15px;
+    margin-top: -100px;
+    
+   }
   .footer {
     position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
-    background-color: rgb(109, 214, 194);
+    width: 150%;
+    background-color: #9fe2d8;
     color: white;
     text-align: left;
   }
@@ -34,8 +43,12 @@ body {
     font-size:24px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     }
-
-  
+    .card{
+      position: fixed;
+      margin-right: 0px;
+      float: none;
+    }
+    
 
     /* Button used to open the contact form - fixed at the bottom of the page */
     .open-button {

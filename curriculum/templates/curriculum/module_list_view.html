@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %} Modules {% endblock %}
+
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="#">Courses</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Modules</li>
+    </ol>
+  </nav>
+
+
 {% for module in courses.modules.all %}
+
 <a href = "{% url 'curriculum:question_list'  slug=module.slug course=courses.slug %}">{{module.module_id}}
     {{module.name}}
 </a>

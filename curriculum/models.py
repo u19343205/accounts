@@ -70,17 +70,6 @@ class Module(models.Model):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-
-def save_question_uploades(instance, filename):
-    upload_to = 'Images/'
-    ext = filename.split('.')[-1]
-    # get filename
-    if instance.subject:
-        filename = 'Question_Uploaded/{}/{}.{}'.format(instance.subject,instance.subject, ext)
-        if os.path.exists(filename):
-            new_name = str(instance.subject) + str('1')
-            filename =  'lesson_images/{}/{}.{}'.format(instance.subject,new_name, ext)
-    return os.path.join(upload_to, filename)
 '''
 class Lecture(models.Model):
     lecture_id = models.IntegerField(primary_key =True) 
@@ -116,7 +105,6 @@ class Assignment(models.Model):
 def save_rename_question(instance, filename):
     upload_to = 'images'
     ext = filename.split('.')[-1]
-
     #retreive filename
     if instance.created_by.username:
         filename = 'Question_Attachment/{}.{}'.format(instance.created_by.username, ext)

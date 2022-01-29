@@ -8,15 +8,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name = "viewport" content="width =device-width, initial-scale"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static '/css/wmgtss.css' %}">
   <link href="{% static 'css/bootstrap.min.css' %}" >  
     <script src="{% static 'bootstrap.min.js' %}"></script>  
   
   
-    {% block title %}
-    {% endblock %}
+   
     
-  <p style = "text-align : right;">Welcome {{ user.username }}</p>  
+  <p style = " position: relative; text-align : right; top: 50px; ">Welcome {{ user.username }}</p>  
 
 <div class="rectangle">
   <p>
@@ -36,46 +36,60 @@
 </div>
 
   <!--if user logs on as admin as extra link in navigation bar to the admin site-->
-  {% if user.is_superuser %}
-  <div class="dropdown" style = "text-align : right">
-    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-    <div id="myDropdown" class="dropdown-content">
-      <a href="#">Home</a>
-      <a href="#">Profile</a>
-      <a href="#">Settings</a>
-      <a href="{% url 'admin:index' %}">Admin Site</a>
-      
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style = " top: 75px; position: fixed; width: 100%;">
+    <a class="navbar-brand" href="/" style="color:#9fe2d8;" >Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'curriculum:course_list' %}">Curriculum</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.warwicksu.com/">Warwick SU</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://tabula.warwick.ac.uk/">Tabula</a>
+        </li>
+        {% if user.is_superuser %}
+        <li class="nav-item ">
+           <a class="nav-link" href="{% url 'admin:index' %}">Admin</span> </a>
+        </li>
+        {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="#">Messages</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Settings</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:#9fe2d8;">Search</button>
+      </form>
     </div>
-  </div>
-{% else %}
-<div class="dropdown" style = "text-align : right;">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#">Home</a>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
-  </div>
-</div>
-{% endif %}
+  </nav>
 
-
-
+  <header class="info-header">
+  
+    <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center">
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-md-10 text-black">
+          <!-- heading -->
+          <h2 class="display-4 font-weight-bold  p-5 " style="color:rgb(5, 70, 62); margin-top: 1.5ch;" >  {% block title %}{% endblock %}</h2>
 <div class="container" align = "center";>
   <div class= header>
-    <style>
-      .header {
-    
-    color: rgb(5, 70, 62);
-    font-size: 45px;
-    display: inline-block;
-    padding: -15px;
-    margin-top: -100px;
-    
   
-  }
-    </style>
   <!--creates a block for header -->
-    {% block header%}{% endblock %}
+  
   </div>
 
   <div>
@@ -87,14 +101,14 @@
   {% block content %}
 
   {% endblock %} 
-</main>
 
 
 <footer>
   <div class="footer">
       <p style ="text-indent: 40px">You are logged in as {{user.username}} | 
         <a href="{% url 'login' %}"> Log Out</a>
-      | </p>
+      |           © 2020 Copyright: wmgtss.com
+      </p>
     </div>
   </footer>
   

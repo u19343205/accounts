@@ -11,7 +11,7 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = "__all__"
+        fields = ['body']
 
 '''
 class AnswerForm(forms.ModelForm):

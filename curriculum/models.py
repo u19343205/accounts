@@ -147,6 +147,7 @@ class Question(models.Model):
     created_at = models.DateTimeField('date published', default=now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
+   # answer = models.ForeignKey("Answer", null=True, blank=True, on_delete=models.CASCADE,related_name='answers')
     slug = models.SlugField(null=True, blank=True)
     ordering = ['-date']
 
@@ -163,7 +164,6 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question,null=True, on_delete=models.CASCADE,related_name='answers')
     answer = models.CharField(max_length=100, blank=True)
-    # reply = models.ForeignKey("Comment", null=True, blank=True, on_delete=models.CASCADE,related_name='replies')
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -177,13 +177,3 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ['-date_added']
-'''
-class Answer(models.Model):
-    comment_name = models.ForeignKey(Comment, on_delete=models.CASCADE,related_name='replies')
-    answer_body = models.TextField(max_length=500)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return "reply to " + str(self.comment_name.comm_name)
-'''

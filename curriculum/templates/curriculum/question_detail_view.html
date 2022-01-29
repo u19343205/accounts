@@ -18,24 +18,29 @@ submitted by {{object.created_by}} on {{object.created_at}}
 <p> Uploaded: {{question.picture}}</p>
 {% endif %}
 
-<a href = "{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Update Question </a>
-<a href = "{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Delete Question </a>
+
 <br>
+
+
+    <a href = "{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Update Question </a>
+    <a href = "{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}"> Delete Question </a>
+
+
+    <h4>Answer the question below</h4>
+    <form method="post" style ="list-style:none;" >
+        {% csrf_token %}
+        {{ form.as_ul}}
+        <input type ='submit' name ='answer' value ='Answer Question'>
+        </form>
+
 {% for answer in questions.answers.all %}
+
 Answered by {{answer.author}} on {{answer.date_added}}<br>
 Answer:{{answer.body}}
+<br>
+
 {% endfor %}
-
-<h4>Answer the question below</h4>
-<form method="post" style ="list-style:none;" >
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="form" value="Answer">
-    </form>
-</div>
-
-
-
+    
 {% endblock %}
 
 </body>

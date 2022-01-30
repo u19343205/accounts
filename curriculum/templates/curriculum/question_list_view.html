@@ -45,12 +45,19 @@
 <br>
 <hr>
 {% endfor %}
-<br>
+
 <div class="row d-flex justify-content-center mb-3">
            <a href="{% url 'curriculum:question_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Ask Question </button> </a>
     
         </div>
-
+      <br>
+        <div class="row d-flex justify-content-center mb-3 mt-3">
+          <div class="col-md-4 mb-3 mr-3">
+            <a href="#" class="btn btn-secondary btn-block">Submit Module Feedback</a>
+          </div>
+      <div class="col-md-4 mb-3 mr-3">
+          <a href="#" class="btn btn-secondary btn-block">Go to Module Quizzes</a>
+  </div>
  
 {% endblock %}
 

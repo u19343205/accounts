@@ -16,7 +16,7 @@
   
    
     
-  <p style = " position: relative; text-align : right; top: 50px; ">Welcome {{ user.username }}</p>  
+  <p style = " position: fixed; right: 0px; top: 25px; ">Welcome {{ user.username }}</p>  
 
 <div class="rectangle">
   <p>
@@ -76,7 +76,27 @@
       </form>
     </div>
   </nav>
-
+  <div class="card text-right" style="width: 10%; top: 130px; right: 0px;">
+    <div class="card-body">
+      <h5 class="card-title">Calendar</h5>
+      <p class="card-text">Check out your schedule!</p>
+      <a href="#" class="btn btn-info">Button</a>
+    </div>
+  </div>
+  <div class="card text-right" style="width: 10%; top: 400px; right: 0px;">
+    <div class="card-body">
+      <h5 class="card-title">Notices</h5>
+      <p class="card-text">Find out important annoucments!</p>
+      <a href="#" class="btn btn-info">Button</a>
+    </div>
+  </div>
+  <div class="card text-right" style="width: 10%; bottom: 30px; right: 0px;">
+    <div class="card-body">
+      <h5 class="card-title">Discussion</h5>
+      <p class="card-text">What's being discussed?</p>
+      <a href="#" class="btn btn-info">Button</a>
+    </div>
+  </div>
   <header class="info-header">
   
     <div id="page-intro" class="container-fluid justify-content-center">
@@ -103,8 +123,8 @@
 
 
 <footer>
-  <div class="footer">
-      <p style ="text-indent: 40px">You are logged in as {{user.username}} | 
+  <div class="footer" style = 'bottom: 0px;'>
+      <p style ="text-indent: 40px; bottom: -10px;">You are logged in as {{user.username}} | 
         <a href="{% url 'login' %}"> Log Out</a>
       |           © 2020 Copyright: U1943205@wmgtss.com
       </p>

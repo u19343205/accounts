@@ -6,6 +6,7 @@ from .models import Answer, Course, Module, Question
 from django.urls import reverse_lazy, reverse
 from .forms import AnswerForm, QuestionForm, CommentForm, ReplyForm
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 class CourseListView(ListView):
     context_object_name = 'courses'
@@ -86,6 +87,34 @@ class QuestionDeleteView(DeleteView):
     model= Question
     context_object_name = 'questions'
     template_name = 'curriculum/question_delete.html'
+
+    def get_success_url(self):
+        print(self.object)
+        course = self.object.course
+        module = self.object.module
+        return reverse_lazy('curriculum:question_list',kwargs={'course':course.slug,'slug':module.slug})
+
+def search_questions(request):
+    if request.method == 'GET':
+        query= request.GET.get('q')
+
+        submitbutton= request.GET.get('submit')
+
+        if query is not None:
+            lookups= Q(subject__icontains=query) | Q(question__icontains=query)
+
+            results= Question.objects.filter(lookups).distinct()
+
+            context={'results': results,
+                    'submitbutton': submitbutton}
+
+            return render(request, 'curriculum/search_questions.html', context)
+
+        else:
+                return render(request, 'curriculum/search_questions.html')
+
+    else:
+            return render(request, 'curriculum/search_questions.html')
 
     def get_success_url(self):
         print(self.object)

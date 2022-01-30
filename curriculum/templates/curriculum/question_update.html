@@ -2,38 +2,24 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
 {% block title %} Update Question {% endblock %}
+{% block content %}
+
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-      <li><a href="{% url 'curriculum:module_list' slug=questions.course.slug %}">{{questions.course.name}}</a></li>
-      <li><a href="{% url 'curriculum:question_list' course=questions.course.slug slug=questions.module.slug %}">{{questions.module.name}}</a></li>
-      <li><a href="{% url 'curriculum:question_detail' course=questions.course.slug module=questions.module.slug slug=questions.slug %}">{{questions.subject}}</a></li>
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li> / 
+      <li><a href="{% url 'curriculum:module_list' slug=questions.course.slug %}"> {{questions.course.name}}</a></li> /
+      <li><a href="{% url 'curriculum:question_list' course=questions.course.slug slug=questions.module.slug %}">{{questions.module.name}}</a></li> /
+      <li><a href="{% url 'curriculum:question_detail' course=questions.course.slug module=questions.module.slug slug=questions.slug %}">{{questions.subject}}</a></li> /
       <li class="breadcrumb-item active" aria-current="page">Update</li>
     </ol>
   </nav>
 
-  <section id="best-features" class="text-center">
-    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Update {{questions.name}}</h2>
-    <!-- class row for description-->
-    <div class="row d-flex justify-content-center mb-4">
-      <!-- class column -->
-      <div class="col-md-8">
-        <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
-                          hic
-                          provident nulla repellat
-                          facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
-                          est
-                          sit pariatur.</p>
-      </div>
-    </div>
-</section>
-
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" style= "align-content: center;">
   {% csrf_token %}
   {{form|crispy}}
-  <div class="row">
+  <div class="row d-flex justify-content-center mb-3 mt-3">
         <div class="col-md-4 mb-3 mr-3">
                 <input type="submit" value="Update" class="btn btn-warning btn-block">
         </div>

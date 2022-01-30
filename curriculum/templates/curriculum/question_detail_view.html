@@ -21,7 +21,9 @@ submitted by {{object.created_by}} on {{object.created_at}}
 <hr>
 <p> Subject:{{object.subject}}</p>
 <p> Question:{{object.question}}</p>
-<p> Uploaded: {{object.picture.filename}}</p>
+{%if request.user.is_staff %}
+<p> Uploaded: {{object.picture}}</p>
+{% endif%}
 {% csrf_token %}
 
 <br>

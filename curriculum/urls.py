@@ -11,6 +11,7 @@ urlpatterns = [
     path('qna/ask/', views.QuestionListView.as_view(), name='question_list'),
     path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A'), #Q&A Board
     path('', views.CourseListView.as_view(), name='course_list'),
+    path('search/', views.search_questions, name='search_questions'),
     path('<slug:slug>/', views.ModuleListView.as_view(), name='module_list'),
     path('<str:course>/<slug:slug>/', views.QuestionListView.as_view(), name='question_list'),
     path('<str:course>/<str:slug>/create/', views.QuestionCreateView.as_view(),name='question_create'),

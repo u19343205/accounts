@@ -3,24 +3,17 @@
 {% load crispy_forms_tags %}
 {% block title %} Ask a Question {% endblock %}
 {% block content %}
-<nav aria-label="breadcrumb" style = "width: 150%; align-self: center;">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-      <li class="breadcrumb-item"><a href="#">Courses</a></li>
-      <li class="breadcrumb-item"><a href="#">Modules</a></li>
-      <li class="breadcrumb-item"><a href="#">Questions</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Ask</li>
-    </ol>
-  </nav>
 
-<form method="post" style ="list-style:none;" >
-    {% csrf_token %}
-    {{form|crispy}}
-    <button type="submit">Submit</button>
-    </form>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form|crispy}}
+  <br>
+  <div class="row d-flex justify-content-center">
+        <div class="col-md-4 mb-3 mr-3">
+                <input type="submit" value="Ask" style = "align-content: center;"   class="btn btn-warning btn-block">
+        </div>
+    <div class="col-md-4 mb-3 mr-3">
+  
 
-    
-
- 
 {% endblock %}
 

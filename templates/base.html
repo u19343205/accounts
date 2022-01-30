@@ -80,26 +80,24 @@
 
   <header class="info-header">
   
-    <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center">
+    <div id="page-intro" class="container-fluid justify-content-center">
       <div class="row d-flex justify-content-center text-center">
         <div class="col-md-10 text-black">
           <!-- heading -->
           <h2 class="display-5 font-weight-bold  p-5 " style="color:rgb(5, 70, 62); margin-top: 2ch;" >  {% block title %}{% endblock %}</h2>
 <div class="container" align = "center";>
   <div class= header>
-  
+  {% block image_block %}
+  {% endblock %} 
   <!--creates a block for header -->
-  
   </div>
-
   <div>
   
 
 </head>
 
 <main>
-  {% block image_block %}
-  {% endblock %} 
+  
   {% block content %}
 
   {% endblock %} 

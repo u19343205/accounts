@@ -71,7 +71,8 @@ class QuestionCreateView(CreateView):
     def form_valid(self, form, *args, **kwargs):
         self.object = self.get_object()
         fm = form.save(commit=False)
-        fm.created_by = self.request.user
+        
+
         fm.course = self.object.course
         fm.module = self.object
         fm.save()

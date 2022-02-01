@@ -1,11 +1,16 @@
 from django import forms
-from django.forms import fields
+from django.forms import fields, widgets
 from curriculum.models import Question, Answer, Comment, Reply
 
 
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
+        options = [
+        ('Yes','Yes'),
+        ('No','No'),
+        ]
+        anonymous = forms.CharField(label ="Submit Anonymously", widget=forms.RadioSelect(choices=options))
         exclude = ['module','created_by', 'standard', 'created_at', 'course', 'slug']
 
 class AnswerForm(forms.ModelForm):

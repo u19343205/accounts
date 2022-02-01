@@ -1,3 +1,4 @@
+from tkinter.messagebox import YES
 from django.db import models
 from django.template.defaultfilters import slugify
 import os, datetime
@@ -7,6 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
+from django.forms import RadioSelect, widgets
 
 def course_rename(instance, filename):
     upload_to = 'images/'
@@ -125,6 +127,8 @@ class Question(models.Model):
     (Lecture_Related,  'Lecture Related'),
     (General, 'General'),
     ]
+
+
     
     topics = models.CharField(max_length=20, choices=topics, default=General)
     #assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
@@ -135,9 +139,19 @@ class Question(models.Model):
     created_at = models.DateTimeField('date published', default=now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
     picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
+    
+    Yes = 'Yes'
+    No ='No'
+   
+    options = [
+        (Yes,'Yes'),
+        (No ,'No'),
+        ]
+    anonymous = models.CharField(max_length=5, verbose_name ="Submit Anonymously", choices=options, default=No)
+    
    # answer = models.ForeignKey("Answer", null=True, blank=True, on_delete=models.CASCADE,related_name='answers')
     slug = models.SlugField(null=True, blank=True)
-    ordering = ['-date']
+    ordering = ['created_at']
 
     def __str__(self):
         return self.subject

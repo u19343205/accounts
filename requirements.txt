@@ -2,3 +2,12 @@ django==4.0.1
 django-crispy-forms==1.11.2
 pillow==8.2.0
 sqlliteviewer==0.1.4
+
+$ cd ~/Desktop
+$ mkdir wmgtss && cd wmgtss
+$ pipenv install django~=4.1.0
+$ pipenv shell
+(wmgtss) $ django-admin startproject config 
+(wmgtss) $ django-admin startapp catalog
+(wmgtss) $ python manage.py migrate
+(wmgtss) $ python manage.py runserver

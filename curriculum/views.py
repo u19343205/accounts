@@ -4,7 +4,7 @@ from django.views.generic import (TemplateView, DetailView,
                                     UpdateView,DeleteView,FormView, TemplateView)
 from .models import Answer, Course, Module, Question, Assignment, Lecture
 from django.urls import reverse_lazy, reverse
-from .forms import AnswerForm, QuestionForm
+from .forms import AnswerForm, QuestionForm, AssignmentForm
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
@@ -28,15 +28,40 @@ class AssignmentListView(DetailView):
     model = Module
     template_name = 'curriculum/assignment_list_view.html'
 
-
+class AssignmentDetailView(DetailView, FormView):
+    context_object_name = 'assignments'
+    model = Assignment
+    template_name = 'curriculum/assignment_detail.html'
+    form_class = AnswerForm
 
 def get_success_url(self):
         self.object = self.get_object()
         course = self.object.course
         module= self.object.module
-        return reverse_lazy('curriculum:question_detail',kwargs={'course':course.slug,
+        return reverse_lazy('curriculum:assignment_list',kwargs={'course':course.slug,
                                                              'module':module.slug,
                                                              'slug':self.object.slug})
+
+class AssignmentCreateView(CreateView):
+    form_class = AssignmentForm
+    context_object_name = 'module'
+    model= Module
+    template_name = 'curriculum/assignment_create.html'
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.course
+        return reverse_lazy('curriculum:assignment_list',kwargs={'course':course.slug,
+                                                             'slug':self.object.slug})
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.course = self.object.course
+        fm.module = self.object
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())
+        
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'questions'
     model = Question
@@ -62,7 +87,6 @@ class QuestionDetailView(DetailView, FormView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-
 class QuestionCreateView(CreateView):
     form_class = QuestionForm
     context_object_name = 'module'
@@ -78,8 +102,7 @@ class QuestionCreateView(CreateView):
     def form_valid(self, form, *args, **kwargs):
         self.object = self.get_object()
         fm = form.save(commit=False)
-        
-
+        fm.created_by = self.request.user
         fm.course = self.object.course
         fm.module = self.object
         fm.save()

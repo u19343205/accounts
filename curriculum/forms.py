@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields, widgets
-from curriculum.models import Question, Answer
+from curriculum.models import Question, Answer, Assignment
 
 
 class QuestionForm(forms.ModelForm):
@@ -11,12 +11,17 @@ class QuestionForm(forms.ModelForm):
         ('No','No'),
         ]
         anonymous = forms.CharField(label ="Submit Anonymously", widget=forms.RadioSelect(choices=options))
-        exclude = ['module','created_by', 'standard', 'created_at', 'course', 'slug']
+        exclude = ['module','created_by', 'standard', 'created_at', 'course', 'slug', 'assignment', 'lecture']
 
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['body']
+
+class AssignmentForm(forms.ModelForm):
+    class Meta:
+        model = Assignment
+        exclude = ['module', 'course', 'slug' ]
 '''
 class CommentForm(forms.ModelForm):
     class Meta:

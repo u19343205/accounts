@@ -86,8 +86,8 @@ def save_lesson_files(instance, filename):
 class Lecture(models.Model):
     id = models.IntegerField(primary_key =True) 
     name = models.TextField(max_length=50)
-    module = models.ForeignKey(Course, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='lectures')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=True, blank=True)
@@ -104,13 +104,14 @@ class Lecture(models.Model):
     
     def get_absolute_url(self):
         return reverse('curriculum:question_list', kwargs={'slug':self.module.slug, 'course':self.course.slug})
-    
+
 class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 
-    module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='assignments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments')
+    module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='assignments')
     name = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
+    #brief = models.FileField(upload_to="images")
     
     slug = models.SlugField(null=True, blank=True)
     duedate = models.DateTimeField()
@@ -153,7 +154,7 @@ class Question(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='questions', null=True, )
     lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='questions', null=True)
     question = models.TextField()
-    created_by = models.ForeignKey(User,on_delete=models.CASCADE, null=False)
+    created_by = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     now = datetime.datetime.now()
     created_at = models.DateTimeField('date published', default=now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
@@ -161,14 +162,14 @@ class Question(models.Model):
     
     Yes = 'Yes'
     No ='No'
-   
+
     options = [
         (Yes,'Yes'),
         (No ,'No'),
         ]
     anonymous = models.CharField(max_length=5, verbose_name ="Submit Anonymously", choices=options, default=No)
     
-   # answer = models.ForeignKey("Answer", null=True, blank=True, on_delete=models.CASCADE,related_name='answers')
+   #answer = models.ForeignKey("Answer", null=True, blank=True, on_delete=models.CASCADE,related_name='answers')
     slug = models.SlugField(null=True, blank=True)
 
     class Meta:

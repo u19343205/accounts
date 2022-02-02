@@ -25,7 +25,7 @@
 <div class="row d-flex justify-content-center mb-3 mt-3">
   
   <div class="col-md-6 mb-3 text-center">
-      <a href="#" class="btn btn-warning mr-4 btn-block">Update Assignment</a>
+      <a href="{% url 'curriculum:assignment_update' course=assignments.course.slug module=assignments.module.slug slug=assignments.slug %}" class="btn btn-warning mr-4 btn-block">Update Assignment</a>
   </div>
   <div class="col-md-6">
       <a href="#" class="btn btn-danger mr-4 btn-block"> Delete Assignment</a>

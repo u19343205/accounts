@@ -61,7 +61,14 @@ class AssignmentCreateView(CreateView):
         fm.module = self.object
         fm.save()
         return HttpResponseRedirect(self.get_success_url())
-        
+    
+class AssignmentUpdateView(UpdateView):
+    fields = ('id','name','description','duedate')
+    model = Assignment
+    template_name = 'curriculum/assignment_update.html'
+    context_object_name = 'assignments'
+
+
 class QuestionDetailView(DetailView, FormView):
     context_object_name = 'questions'
     model = Question

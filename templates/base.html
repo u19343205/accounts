@@ -30,16 +30,104 @@
 }
   </style>
    </p>
-
 </div>
-<!---
-<div class="sidebar">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div>
--->
+{%if request.user.is_superuser %}
+<navbar>
+  <style>
+    
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: powderblue;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+    
+    .sidebar a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+    
+    .sidebar a:hover {
+      color: white;
+    }
+    
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color:powderblue;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+    }
+    
+    .openbtn:hover {
+      background-color: #444;
+    }
+    
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+    }
+    
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidebar {padding-top: 15px;}
+      .sidebar a {font-size: 18px;}
+    }
+    </style>
+    </head>
+    <body>
+    
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <a href="http://127.0.0.1:8000/admin/auth/user/add/">Add User</a>
+      <a href="http://127.0.0.1:8000/admin/auth/user/">Manage Users</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/course/add/">Add Course</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/course/">Manage Courses</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/module/add/">Add Module</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/module/">Manage Modules</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/assignment/add/">Add Assignment</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/assignment/">Manage Assignments</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/lecture/add">Add Lecture</a>
+      <a href="http://127.0.0.1:8000/admin/curriculum/lecture/">Manage Lecture</a>
+    </div>
+    
+    <div id="main">
+      <button class="openbtn" style= "margin-top: 120px; position: absolute;"onclick="openNav()">☰ Manage WMGTSS</button>  
+    </div>
+    
+    <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+    </script>
+</body>    
+</navbar>
+{% endif %}
 
   <!--if user logs on as admin as extra link in navigation bar to the admin site-->
 
@@ -82,29 +170,7 @@
       </form>
     </div>
   </nav>
-<!--
-  <div class="card text-right" style="width: 10%; top: 130px; right: 0px;">
-    <div class="card-body">
-      <h5 class="card-title">Calendar</h5>
-      <p class="card-text">Check out your schedule!</p>
-      <a href="#" class="btn btn-info">Button</a>
-    </div>
-  </div>
-  <div class="card text-right" style="width: 10%; top: 400px; right: 0px;">
-    <div class="card-body">
-      <h5 class="card-title">Notices</h5>
-      <p class="card-text">Find out important annoucments!</p>
-      <a href="#" class="btn btn-info">Button</a>
-    </div>
-  </div>
-  <div class="card text-right" style="width: 10%; bottom: 30px; right: 0px;">
-    <div class="card-body">
-      <h5 class="card-title">Discussion</h5>
-      <p class="card-text">What's being discussed?</p>
-      <a href="#" class="btn btn-info">Button</a>
-    </div>
-  </div>
--->
+
   <header class="info-header">
   
     <div id="page-intro" class="container-fluid justify-content-center">
@@ -137,20 +203,4 @@
     </div>
   </footer>
   
-
-
-
-  </html>
-<script>
-  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "150px";
-}
-
-/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-}
-</script>
+</html>

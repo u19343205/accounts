@@ -12,10 +12,7 @@
   <link rel="stylesheet" type="text/css" href="{% static '/css/wmgtss.css' %}">
   <link href="{% static 'css/bootstrap.min.css' %}" >  
     <script src="{% static 'bootstrap.min.js' %}"></script>  
-  
-  
-   
-    
+
   <p style = " position: fixed; right: 0px; top: 25px; ">Welcome {{ user.username }}</p>  
 
 <div class="rectangle">
@@ -85,6 +82,7 @@
       </form>
     </div>
   </nav>
+<!--
   <div class="card text-right" style="width: 10%; top: 130px; right: 0px;">
     <div class="card-body">
       <h5 class="card-title">Calendar</h5>
@@ -106,6 +104,7 @@
       <a href="#" class="btn btn-info">Button</a>
     </div>
   </div>
+-->
   <header class="info-header">
   
     <div id="page-intro" class="container-fluid justify-content-center">
@@ -120,8 +119,6 @@
   <!--creates a block for header -->
   </div>
   <div>
-  
-
 </head>
 
 <main>
@@ -130,7 +127,7 @@
 
   {% endblock %} 
 
-
+</main>
 <footer>
   <div class="footer" style = 'bottom: 0px;'>
       <p style ="text-indent: 40px; bottom: -10px;">You are logged in as {{user.username}} | 

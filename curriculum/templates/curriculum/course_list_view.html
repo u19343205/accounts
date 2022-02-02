@@ -12,10 +12,12 @@
   </nav>
  
 <br>
+
 {% for course in courses %}
 <a href="{% url 'curriculum:module_list'  slug=course.slug  %}">
   <h2>{{course.name}}</h2>
 <br></a>
 {% endfor %}
- 
+{% if user.is_staff %}
+{% endif %}
 {% endblock %}

@@ -138,7 +138,7 @@ class Question(models.Model):
     now = datetime.datetime.now()
     created_at = models.DateTimeField('date published', default=now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1, related_name='questions')
-    picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment", blank=True)
+    picture = models.ImageField(upload_to=save_rename_question, verbose_name ="Question Attachment:", blank=True)
     
     Yes = 'Yes'
     No ='No'
@@ -151,7 +151,9 @@ class Question(models.Model):
     
    # answer = models.ForeignKey("Answer", null=True, blank=True, on_delete=models.CASCADE,related_name='answers')
     slug = models.SlugField(null=True, blank=True)
-    ordering = ['created_at']
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.subject

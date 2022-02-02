@@ -124,6 +124,6 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
 
 
 
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/home/' #redirect to homepage afterlogin
+LOGIN_REDIRECT_URL = '/' #redirect to homepage afterlogin
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/login/' #redirect to login page after log out 
 ADMIN_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/accounts/login/' #redirect to login page after admin log out

@@ -18,6 +18,7 @@
     {{assignment.id}}: {{assignment.name}} Due: {{assignment.duedate}} </a>
 <hr>
 {% endfor %}
+
 {% if user.is_staff %}
 <div class="row d-flex justify-content-center mb-3">
   <a href="{% url 'curriculum:assignment_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Add Assignment</button> </a>

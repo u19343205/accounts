@@ -103,7 +103,7 @@ class Lecture(models.Model):
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
-        return reverse('curriculum:lecture_list', kwargs={'slug':self.module.slug, 'course':self.course.slug})
+        return reverse('curriculum:question_list', kwargs={'slug':self.module.slug, 'course':self.course.slug})
 
 class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 

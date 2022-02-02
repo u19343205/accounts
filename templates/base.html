@@ -31,7 +31,7 @@
   </style>
    </p>
 </div>
-{%if request.user.is_superuser %}
+{%if request.user.is_staff %}
 <navbar>
   <style>
     
@@ -58,7 +58,7 @@
     }
     
     .sidebar a:hover {
-      color: white;
+      color: rgba(228, 228, 228, 0.507);
     }
     
     .sidebar .closebtn {
@@ -79,7 +79,7 @@
     }
     
     .openbtn:hover {
-      background-color: #444;
+      background-color: rgba(228, 228, 228, 0.507);
     }
     
     #main {

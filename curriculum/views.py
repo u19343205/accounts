@@ -8,6 +8,7 @@ from .forms import AnswerForm, QuestionForm, AssignmentForm, LectureForm
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
+
 class CourseListView(ListView):
     context_object_name = 'courses'
     model = Course
@@ -41,6 +42,7 @@ def get_success_url(self):
         return reverse_lazy('curriculum:assignment_list',kwargs={'course':course.slug,
                                                              'module':module.slug,
                                                              'slug':self.object.slug})
+
 
 class AssignmentCreateView(CreateView):
     form_class = AssignmentForm

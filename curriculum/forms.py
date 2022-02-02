@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields, widgets
-from curriculum.models import Question, Answer, Comment, Reply
+from curriculum.models import Question, Answer
 
 
 class QuestionForm(forms.ModelForm):
@@ -17,7 +17,7 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ['body']
-
+'''
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -41,3 +41,4 @@ class ReplyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(ReplyForm, self).__init__(*args, **kwargs)
+'''

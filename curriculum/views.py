@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.views.generic import (TemplateView, DetailView,
                                     ListView, CreateView,
                                     UpdateView,DeleteView,FormView, TemplateView)
-from .models import Answer, Course, Module, Question
+from .models import Answer, Course, Module, Question, Assignment, Lecture
 from django.urls import reverse_lazy, reverse
-from .forms import AnswerForm, QuestionForm, CommentForm, ReplyForm
+from .forms import AnswerForm, QuestionForm
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
@@ -23,6 +23,13 @@ class QuestionListView(DetailView):
     model = Module
     template_name = 'curriculum/question_list_view.html'
 
+class AssignmentListView(DetailView):
+    context_object_name = 'modules'
+    model = Module
+    template_name = 'curriculum/assignment_list_view.html'
+
+
+
 def get_success_url(self):
         self.object = self.get_object()
         course = self.object.course
@@ -35,8 +42,8 @@ class QuestionDetailView(DetailView, FormView):
     model = Question
     template_name = 'curriculum/question_detail_view.html'
     form_class = AnswerForm
-    second_form_class = CommentForm
-    third_form_class = ReplyForm
+    #second_form_class = CommentForm
+    #third_form_class = ReplyForm
 
     def get_success_url(self):
         self.object = self.get_object()
@@ -116,9 +123,3 @@ def search_questions(request):
 
     else:
             return render(request, 'curriculum/search_questions.html')
-
-    def get_success_url(self):
-        print(self.object)
-        course = self.object.course
-        module = self.object.module
-        return reverse_lazy('curriculum:question_list',kwargs={'course':course.slug,'slug':module.slug})

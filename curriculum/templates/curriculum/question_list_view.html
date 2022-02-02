@@ -13,11 +13,20 @@
   <title>WMGTSS | {{modules.name}} </title>
 
 <body>
+  <div class="row d-flex justify-content-center mb-3 mt-3">
+    <div class="col-md-4 mb-3 mr-3">
+      <a href="{% url 'curriculum:assignment_list'  course=modules.course.slug slug=modules.slug%}" class="btn btn-secondary btn-block">View Module Assignments</a>
 
+    </div>
+<div class="col-md-4 mb-3 mr-3">
+    <a href="#" class="btn btn-secondary btn-block">View Module Lectures</a>
+</div>
+</div>
 <h3>Submitted Questions</h3>
 {% csrf_token %}
+<form class="form-inline my-2 my-lg-0 justify-content-center">
 <form action="#" method="GET" value="{{request.GET.q}}">
-  <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Questions"/>
+  <input class="form-control mr-sm-2" type="search" placeholder="Search Questions" aria-label="Search">
   <button class= "btn btn-outline-secondary" type="submit">Search</button></a>
   </form>
   <br>
@@ -52,13 +61,13 @@
         </div>
         <div class="row d-flex justify-content-center mb-3 mt-3">
           <div class="col-md-4 mb-3 mr-3">
-            <a href="#" class="btn btn-secondary btn-block">Submit Module Feedback</a>
+            <a href="#" class="btn btn-outline-secondary">Submit Module Feedback</a>
           </div>
       <div class="col-md-4 mb-3 mr-3">
-          <a href="#" class="btn btn-secondary btn-block">Go to Module Quizzes</a>
+          <a href="#" class="btn btn-outline-info">Go to Module Quizzes</a>
   </div>
         <div class="col-md-4 mb-3 mr-3">
-          <a href="#" class="btn btn-secondary btn-block">Open Module Resources</a>
+          <a href="#" class="btn btn-outline-primary">Open Module Resources</a>
       </div>
  </div>
  <br>

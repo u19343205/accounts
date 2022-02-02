@@ -72,29 +72,47 @@ class Module(models.Model):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-'''
+def save_lesson_files(instance, filename):
+    upload_to = 'Images/'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.id:
+        filename = 'lecture_files/{}/{}.{}'.format(instance.id,instance.id, ext)
+        if os.path.exists(filename):
+            new_name = str(instance.id) + str('1')
+            filename =  'lecture_images/{}/{}.{}'.format(instance.d,new_name, ext)
+    return os.path.join(upload_to, filename)
+
 class Lecture(models.Model):
-    lecture_id = models.IntegerField(primary_key =True) 
-    lecture_title = models.TextField(max_length=50)
-    module_id = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, default = 1)
+    id = models.IntegerField(primary_key =True) 
+    name = models.TextField(max_length=50)
+    module = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lectures')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=True, blank=True)
     slides = models.FileField(upload_to=save_lecture_slides, verbose_name= "Lecture Slides", blank=True)
+    video = models.FileField(upload_to=save_lesson_files,verbose_name="Video", blank=True, null=True)
+    notes = models.FileField(upload_to=save_lesson_files,verbose_name="Notes", blank=True)
 
     def __str__(self):
-        return self.lecture_title
+        return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.lecture_title)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('curriculum:question_list', kwargs={'slug':self.module.slug, 'course':self.course.slug})
     
 class Assignment(models.Model):
     id = models.CharField(primary_key =True, max_length=50) 
+    module = models.ForeignKey(Module, on_delete=models.CASCADE,related_name='assignments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments')
     name = models.TextField(max_length=50)
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='assignments', default = 1)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='assignments', default = 1)
+    description = models.TextField(max_length=250)
+    
+    slug = models.SlugField(null=True, blank=True)
     duedate = models.DateTimeField()
     
     def __str__(self):
@@ -103,7 +121,10 @@ class Assignment(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-'''
+    
+    def get_absolute_url(self):
+        return reverse('curriculum:assignment_list', kwargs={'slug':self.slug, 'module':self.modules.slug,'course':self.course.slug})
+
 def save_rename_question(instance, filename):
     upload_to = 'images'
     ext = filename.split('.')[-1]
@@ -128,11 +149,9 @@ class Question(models.Model):
     (General, 'General'),
     ]
 
-
-    
     topics = models.CharField(max_length=20, choices=topics, default=General)
-    #assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='question', null=True, )
-    #lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='question', null=True)
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='questions', null=True, )
+    lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE, related_name='questions', null=True)
     question = models.TextField()
     created_by = models.ForeignKey(User,on_delete=models.CASCADE, null=False)
     now = datetime.datetime.now()
@@ -182,7 +201,7 @@ class Answer(models.Model):
     class Meta:
         ordering = ['-date_added']
 
-
+'''
 class Comment(models.Model):
     question = models.ForeignKey(Question,null=True, on_delete=models.CASCADE,related_name='comments')
     comm_name = models.CharField(max_length=100, blank=True)
@@ -209,3 +228,4 @@ class Reply(models.Model):
 
     def __str__(self):
         return "reply to " + str(self.comment_name.comm_name)
+'''

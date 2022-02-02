@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Assignments {% endblock %}
+
+{% block content %}
+<h1>hi testing </h1>
+
+{% for assignment in modules.assignments.all %}
+    {{assignment.id}}
+    {{assignment.name}}
+    {{assignment.description}}
+{% endfor %}
+ 
+{% endblock %}

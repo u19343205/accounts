@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import admin
 from curriculum.forms import QuestionForm
 
-from curriculum.models import Course, Module, Question, Answer
+from curriculum.models import Course, Module, Question, Answer, Assignment, Lecture
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -23,6 +23,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
+admin.site.register(Assignment)
+admin.site.register(Lecture)
+
 #admin.site.register(Standard)
 
 

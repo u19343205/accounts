@@ -1,12 +1,12 @@
 <!-- WMGTSS Login Screen -->
 {% load static %} 
 {% block title %}
-{% endblock %}
-
-{% block content %}
+{% load crispy_forms_tags %}
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name = "viewport" content="width =device-width, initial-scale">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/wmgtss.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static '/css/wmgtss.css' %}">
   <link href="{% static 'css/bootstrap.min.css' %}" >  
     <script src="{% static 'bootstrap.min.js' %}"></script>   
@@ -33,11 +33,10 @@
   <style>
     .center {
   position: relative;
-  top: -180px;
+  top: -150px;
+  left: 50px;
   clear: both;
   display: inline;
-  margin-left: auto;
-  margin-right: auto;
   object-fit: contain;
   
   width: 90%;
@@ -46,10 +45,12 @@
   </style>
 <form method="post" style="text-align: center;
 position: relative;
-top: -270px;  ">
+top: -270px; padding-left: 450px; padding-right: 450px;">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" style = "background-color:#014e45; color:#ffffff">Log In</button>
+  {{ form|crispy }}
+  <input type="submit" value="Login" style = "align-content: center;"   class="btn btn-outline-secondary">
+ 
+</div>
 </form>
 
 

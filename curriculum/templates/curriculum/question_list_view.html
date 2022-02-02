@@ -19,7 +19,7 @@
 
     </div>
 <div class="col-md-4 mb-3 mr-3">
-    <a href="#" class="btn btn-secondary btn-block">View Module Lectures</a>
+    <a href="{% url 'curriculum:lecture_list'  course=modules.course.slug slug=modules.slug%}" class="btn btn-secondary btn-block">View Module Lectures</a>
 </div>
 </div>
 <h3>Submitted Questions</h3>

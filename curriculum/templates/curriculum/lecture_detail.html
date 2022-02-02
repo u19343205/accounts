@@ -7,19 +7,21 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'curriculum:course_list' %}">{{assignments.course.name}}</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'curriculum:module_list' slug=assignments.course.slug %}">{{assignments.module.name}}</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'curriculum:assignment_list' course=assignments.course.slug slug=assignments.module.slug %}">Assignments</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'curriculum:course_list' %}">{{lectures.course.name}}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'curriculum:module_list' slug=lectures.course.slug %}">{{lectures.module.name}}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'curriculum:lecture_list' course=lectures.course.slug slug=lectures.module.slug %}">Lectures</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{object.name}}</li>
   </ol>
 </nav>
-<title> WMGTSS | {{assignment.name}} </title>
+<title> WMGTSS | {{lectures.name}} </title>
 
 <body>
 
-{{object.id}} | {{object.name}}
+{{object.id}} | {{object.name}} Taught by: {{object.teacher}}
 <hr>
-<p> Description:{{object.description}}</p>
+<p> Lecture Slides: {{object.slides}}</p>
+<p> Lecture Notes: {{object.notes}}</p>
+<p> Videos: {{object.video}}</p>
 <div class="row d-flex justify-content-center mb-3">
   <a href="http://127.0.0.1:8000/curriculum/digital-and-technology-solutions/software-development-cycle/ask/"><button type="button" class="btn btn-success btn-lg btn-bloc" > Ask Question </button> </a>
 
@@ -29,11 +31,11 @@
 <div class="row d-flex justify-content-center mb-3 mt-3">
   
   <div class="col-md-6 mb-3 text-center">
-      <a href="{% url 'curriculum:assignment_update' course=assignments.course.slug module=assignments.module.slug slug=assignments.slug %}" class="btn btn-warning mr-4 btn-block">Update Assignment</a>
+      <a href="{% url 'curriculum:lecture_update' course=lectures.course.slug module=lectures.module.slug slug=lectures.slug %}" class="btn btn-warning mr-4 btn-block">Update Lecture</a>
   </div>
   {%if request.user.is_superuser %}
   <div class="col-md-6">
-      <a href="http://127.0.0.1:8000/admin/curriculum/assignment/" class="btn btn-danger mr-4 btn-block"> Delete Assignment</a>
+      <a href="#" class="btn btn-danger mr-4 btn-block"> Delete Lecture</a>
   </div>
 
 </div>

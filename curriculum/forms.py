@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields, widgets
-from curriculum.models import Question, Answer, Assignment
+from curriculum.models import Question, Answer, Assignment, Lecture
 
 
 class QuestionForm(forms.ModelForm):
@@ -22,6 +22,11 @@ class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
         exclude = ['module', 'course', 'slug' ]
+
+class LectureForm(forms.ModelForm):
+    class Meta:
+        model = Lecture
+        exclude = ['module', 'course', 'slug', 'created_at']
 '''
 class CommentForm(forms.ModelForm):
     class Meta:

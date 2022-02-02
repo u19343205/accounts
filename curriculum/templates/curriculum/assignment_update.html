@@ -9,7 +9,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Dashboard</a></li> / 
-      <li><a href="{% url 'curriculum:module_list' slug=assignments.course.slug %}"> {{questions.course.name}}</a></li> /
+      <li><a href="{% url 'curriculum:module_list' slug=assignments.course.slug %}"> {{assignments.course.name}}</a></li> /
       <li><a href="{% url 'curriculum:question_list' course=assignments.course.slug slug=assignments.module.slug %}">{{assignments.module.name}}</a></li> /
       <li><a href="{% url 'curriculum:question_detail' course=assignments.course.slug module=assignments.module.slug slug=assignments.slug %}">{{assignments.name}}</a></li> /
       <li class="breadcrumb-item active" aria-current="page">Update</li>

@@ -4,7 +4,7 @@ from django.views.generic import (TemplateView, DetailView,
                                     UpdateView,DeleteView,FormView, TemplateView)
 from .models import Answer, Course, Module, Question, Assignment, Lecture
 from django.urls import reverse_lazy, reverse
-from .forms import AnswerForm, QuestionForm, AssignmentForm
+from .forms import AnswerForm, QuestionForm, AssignmentForm, LectureForm
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
@@ -67,6 +67,53 @@ class AssignmentUpdateView(UpdateView):
     model = Assignment
     template_name = 'curriculum/assignment_update.html'
     context_object_name = 'assignments'
+
+
+class LectureListView(DetailView):
+    context_object_name = 'modules'
+    model = Module
+    template_name = 'curriculum/lecture_list_view.html'
+
+class LectureDetailView(DetailView, FormView):
+    context_object_name = 'lectures'
+    model = Lecture
+    template_name = 'curriculum/lecture_detail.html'
+    form_class = LectureForm
+
+def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.course
+        module= self.object.module
+        return reverse_lazy('curriculum:lecture_list',kwargs={'course':course.slug,
+                                                             'module':module.slug,
+                                                             'slug':self.object.slug})
+
+class LectureCreateView(CreateView):
+    form_class = LectureForm
+    context_object_name = 'module'
+    model= Module
+    template_name = 'curriculum/lecture_create.html'
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        course = self.object.course
+        return reverse_lazy('curriculum:assignment_list',kwargs={'course':course.slug,
+                                                             'slug':self.object.slug})
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = self.get_object()
+        fm = form.save(commit=False)
+        fm.course = self.object.course
+        fm.module = self.object
+        fm.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+class LectureUpdateView(UpdateView):
+    fields = ('id','name','teacher','slides', 'video', 'notes')
+    model = Lecture
+    template_name = 'curriculum/lecture_update.html'
+    context_object_name = 'lectures'
+
 
 
 class QuestionDetailView(DetailView, FormView):

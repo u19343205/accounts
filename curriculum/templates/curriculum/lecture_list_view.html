@@ -12,7 +12,7 @@
       <li class="breadcrumb-item active" aria-current="page">Lectures<li>
     </ol>
   </nav>
-<title>WMGTSS | Assignments </title>
+<title>WMGTSS | Lectures </title>
 {% for lecture in modules.lectures.all %}
 <a href="{% url 'curriculum:lecture_detail' slug=lecture.slug module=modules.slug course=lecture.course.slug %}" >
     {{lecture.id}}: {{lecture.name}} Taught by: {{lecture.teacher}} </a>

@@ -30,19 +30,7 @@ def save_lecture_slides(instance, filename):
             new_name = str(instance.lecture_id) + str('1')
             filename = 'Lecture_Slides/{}.{}'.format(instance.lecture_id,new_name, ext)
     return os.path.join(upload_to,filename)
-'''  
-class Standard(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(null=True, blank=True)
-    description = models.TextField(max_length=500, blank=True)
 
-    def __str__(self):
-        return self.name
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
- '''  
 
 class Course(models.Model):
     course_id = models.CharField(unique=True, max_length=50) 

@@ -47,8 +47,9 @@ lecture:
 - created at
 - moudle (fk)
 - lesson_name 
-- position (chapter no.)
 - slides
+- notes 
+- video 
 
 assignment:
 - id (pk)

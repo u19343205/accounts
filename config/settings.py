@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'curriculum',
     'crispy_forms',
+    'coverage',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  
   

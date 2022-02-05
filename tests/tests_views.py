@@ -9,8 +9,8 @@ from django.http import HttpRequest
 from django.test import TransactionTestCase, SimpleTestCase, TestCase
 from django.http import HttpRequest
 from django.urls import reverse
-
 from ..curriculum import views
+import unittest
 
 
 class HomePageTests(SimpleTestCase):

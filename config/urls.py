@@ -1,5 +1,4 @@
 """config URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -14,20 +13,41 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # config/urls.py
+
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns 
+from django.views.generic.base import TemplateView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls import  include
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render
+from django.views.decorators.vary import vary_on_cookie
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import (TemplateView, DetailView,
+                                    ListView, FormView)
+from catalog import views
+from curriculum import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('catalog.urls')),
+    path('curriculum/', include('curriculum.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('home/', TemplateView.as_view(template_name='home.html'), name='WMGTSS Dashboard'), #Dashboard Link
-    path('qna/', TemplateView.as_view(template_name='qna.html'), name='WMGTSS Q&A') #Q&A Board 
-]
 
+
+
+
+
+
+]
+#This media handling will old be located here during WMGTSS testing. Throughout production media will be stored on a seperate server
 urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 admin.site.site_header = "WMGTSS Admin"
 admin.site.site_title = "WMGTSS Admin Portal"
-admin.site.index_title = "Welcome to WMGTSS Portal"

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<title> WMGTSS | Delete Question </title>
+
+<h3 class="mb-4">Are you sure you want to delete?</h3>
+<form method="post">
+  {% csrf_token %}
+  <div class="row d-flex justify-content-center mb-3 mt-3">
+        <div class="col-md-4 mb-3 mr-3">
+                <input type="submit" value="Delete" class="btn btn-danger btn-block">
+        </div>
+        <div class="col-md-4 mb-3 mr-3">
+                <a href="{% url 'curriculum:question_detail' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-warning btn-block">Cancel</a>
+        </div>
+  </div>
+</div>
+</form>
+
+{% endblock %}

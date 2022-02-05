@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Assignments {% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:course_list' %}">{{modules.course}}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:module_list' slug=modules.course.slug %}">{{modules.name}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Assignments</li>
+    </ol>
+  </nav>
+<title>WMGTSS | Assignments </title>
+{% for assignment in modules.assignments.all %}
+<a href="{% url 'curriculum:assignment_detail' slug=assignment.slug module=modules.slug course=assignment.course.slug %}" >
+    {{assignment.id}}: {{assignment.name}} Due: {{assignment.duedate}} </a>
+<hr>
+{% endfor %}
+
+{% if user.is_staff %}
+<div class="row d-flex justify-content-center mb-3">
+  <a href="{% url 'curriculum:assignment_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Add Assignment</button> </a>
+
+</div>
+ {% endif %}
+{% endblock %}
+

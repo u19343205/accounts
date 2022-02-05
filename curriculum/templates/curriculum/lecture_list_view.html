@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Lectures {% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:course_list' %}">{{modules.course}}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:module_list' slug=modules.course.slug %}">{{modules.name}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Lectures<li>
+    </ol>
+  </nav>
+<title>WMGTSS | Lectures </title>
+{% for lecture in modules.lectures.all %}
+<a href="{% url 'curriculum:lecture_detail' slug=lecture.slug module=modules.slug course=lecture.course.slug %}" >
+    {{lecture.id}}: {{lecture.name}} Taught by: {{lecture.teacher}} </a>
+<hr>
+{% endfor %}
+
+{% if user.is_staff %}
+<div class="row d-flex justify-content-center mb-3">
+  <a href="{% url 'curriculum:lecture_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Add Lecture</button> </a>
+
+</div>
+ {% endif %}
+{% endblock %}

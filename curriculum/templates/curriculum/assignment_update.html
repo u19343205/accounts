@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Update Assignment {% endblock %}
+{% block content %}
+<title> WMGTSS | Update Assignment </title>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li> / 
+      <li><a href="{% url 'curriculum:module_list' slug=assignments.course.slug %}"> {{assignments.course.name}}</a></li> /
+      <li><a href="{% url 'curriculum:question_list' course=assignments.course.slug slug=assignments.module.slug %}">{{assignments.module.name}}</a></li> /
+      <li><a href="{% url 'curriculum:question_detail' course=assignments.course.slug module=assignments.module.slug slug=assignments.slug %}">{{assignments.name}}</a></li> /
+      <li class="breadcrumb-item active" aria-current="page">Update</li>
+    </ol>
+  </nav>
+
+<form method="post" enctype="multipart/form-data" style= "align-content: center;">
+  {% csrf_token %}
+  {{form|crispy}}
+  <div class="row d-flex justify-content-center mb-3 mt-3">
+        <div class="col-md-4 mb-3 mr-3">
+                <input type="submit" value="Update" class="btn btn-warning btn-block">
+        </div>
+    <div class="col-md-4 mb-3 mr-3">
+        <a href="{% url 'curriculum:assignment_detail' course=assignments.course.slug module=assignments.module.slug slug=assignments.slug %}" class="btn btn-danger btn-block">Cancel Update</a>
+</div>
+ 
+{% endblock %}

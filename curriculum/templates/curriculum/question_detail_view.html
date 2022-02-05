@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{object.question}} {% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:course_list' %}">{{questions.course.name}}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:module_list' slug=questions.course.slug %}">{{questions.module.name}}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'curriculum:question_list' course=questions.course.slug slug=questions.module.slug %}">Questions</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{questions.subject}}</li>
+    </ol>
+  </nav>
+<title> WMGTSS | Question </title>
+
+<body>
+
+submitted by {{object.created_by}} on {{object.created_at}}
+<hr>
+<p> Subject:{{object.subject}}</p>
+<p> Question:{{object.question}}</p>
+{%if request.user.is_staff %}
+<p> Uploaded: {{object.picture}}</p>
+{% endif%}
+{% csrf_token %}
+
+<br>
+<hr>
+{% for answer in questions.answers.all %}
+
+Answered by {{answer.author}} on {{answer.date_added}}<br>
+Answer:{{answer.body}}
+<br>
+<hr>
+{% endfor %}
+
+{%if request.user.is_staff %}
+<div class="row d-flex justify-content-center mb-3 mt-3">
+  
+  <div class="col-md-6 mb-3 text-center">
+      <a href="{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-warning mr-4 btn-block">Update Question</a>
+  </div>
+  <div class="col-md-6">
+      <a href="{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-danger mr-4 btn-block"> Delete Question</a>
+  </div>
+
+</div>
+
+    <h4>Answer the question below</h4>
+
+    <div class="container row">
+      <div class="col-md-6">
+                              <form method="post" style ="width: 200%;">
+                                    <div class="form-group">
+                                    {% csrf_token %}
+                                    {{form|crispy}}
+                                    <input type="submit" name="form" value="Answer Question" class="btn btn-primary btn-sm">
+                                    </div>
+                              </form>
+
+      </div>
+{% endif %}
+{% endblock %}
+
+

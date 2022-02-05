@@ -3,17 +3,18 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.test import Client, TestCase, override_settings
-from .models import Question 
-from .views import QuestionCreateView
+from ..curriculum.models import Question 
+from ..curriculum.views import QuestionCreateView
 from django.http import HttpRequest
 from django.test import TransactionTestCase, SimpleTestCase, TestCase
 from django.http import HttpRequest
 from django.urls import reverse
 
-from . import views
+from ..curriculum import views
 
 
 class HomePageTests(SimpleTestCase):
+    @classmethod
 
     def test_home_page_status_code(self):
         response = self.client.get('/')
@@ -36,34 +37,27 @@ class HomePageTests(SimpleTestCase):
     def test_home_page_contains_correct_html(self):
         response = self.client.get('/')
         self.assertContains(response, 'Dashboard')
-'''
 
-class CurriculumPageTests(TestCase):
 
-    def test_about_page_status_code(self):
-        response = self.client.get('/curriculum/')
-        self.assertEquals(response.status_code, 200)
+class TestViews(TestCase):
+    """
+    Includes tests for all the functionality
+    associated with Views
+    """
+    def setUp(self):
+        self.client = Client()
+        self.user = get_user_model().objects.create_user(
+            username='test_user',
+            email='test@swapps.co',
+            password='top_secret'
+        )
+        self.client.login(username='test_user', password='top_secret')
+        self.user_two = get_user_model().objects.create_user(
+            username='user2', password='top_secret')
 
-    def test_view_url_by_name(self):
-        response = self.client.get(reverse('course_list'))
-        self.assertEquals(response.status_code, 200)
-
-    def test_view_uses_correct_template(self):
-        response = self.client.get(reverse('course_list'))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'course_list_view.html')
-
-    def test_about_page_contains_correct_html(self):
-        response = self.client.get('/curriculum/')
-        self.assertContains(response, 'Courses')
-
-    def test_about_page_does_not_contain_incorrect_html(self):
-        response = self.client.get('/')
-        self.assertNotContains(
-            response, 'Hi there! I should not be on the page.')  
 
 class qnapageTests(TransactionTestCase):
-    def test_question_create_ciew(self):
+    def test_question_create_view(self):
             """
             QuestionCreateView should create a new question object.
             """
@@ -80,8 +74,7 @@ class qnapageTests(TransactionTestCase):
             self.assertEqual(Question.objects.count(),
                          current_question_count + 1)
 
-'''
-class qnasubjecy(TransactionTestCase):
+class qnasubject(TransactionTestCase):
     @override_settings(QA_SETTINGS={'question_subject_optional': True})
     def test_create_question_optional_description(self):
             """

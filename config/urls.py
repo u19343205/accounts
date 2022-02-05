@@ -16,7 +16,6 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls import  include
 from django.conf.urls.static import static
@@ -27,8 +26,6 @@ from django.views.decorators.vary import vary_on_cookie
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import (TemplateView, DetailView,
-                                    ListView, FormView)
 from catalog import views
 from curriculum import views
 
@@ -37,11 +34,6 @@ urlpatterns = [
     path('', include('catalog.urls')),
     path('curriculum/', include('curriculum.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
-
-
-
-
 
 ]
 #This media handling will old be located here during WMGTSS testing. Throughout production media will be stored on a seperate server

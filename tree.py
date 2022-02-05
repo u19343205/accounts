@@ -74,6 +74,6 @@ class DisplayablePath(object):
             parent = parent.parent
 
         return ''.join(reversed(parts))
-paths = DisplayablePath.make_tree(Path('wmgtss'))
+paths = DisplayablePath.make_tree(Path('curriculum'))
 for path in paths:
     print(path.displayable())

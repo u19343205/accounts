@@ -13,7 +13,7 @@ class TestAskQuestionForm(unittest.TestCase):
         self.assertTrue(form.is_valid())
 
     def test_invalid_form(self):
-        """Tests to check whether the form is invalid"""
+        """Tests to check whether the form is in valid"""
         w = Question.objects.create(subject='Hello', body='Test')
         data = {'subject': w.subject, 'question': w.question,}
         form = QuestionForm(data=data)

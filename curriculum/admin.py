@@ -1,3 +1,4 @@
+#registe the following models into the admin site 
 from django.contrib import admin
 from django.contrib import admin
 from curriculum.forms import QuestionForm
@@ -25,7 +26,5 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
 admin.site.register(Assignment)
 admin.site.register(Lecture)
-
-#admin.site.register(Standard)
 
 

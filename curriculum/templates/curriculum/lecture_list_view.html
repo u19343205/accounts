@@ -4,6 +4,7 @@
 {% block title %} Lectures {% endblock %}
 
 {% block content %}
+<!--breadcrumb bar -->
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -13,12 +14,15 @@
     </ol>
   </nav>
 <title>WMGTSS | Lectures </title>
+<!--by calling upon the fk of modules in the lecture model the related name "lectures" allows all created assignment to be shown 
+as upon creation they must have a select module-->
 {% for lecture in modules.lectures.all %}
+<!--slug the lecture detail page so when each list of assignment is press it expands into their content detail and render the detail html -->
 <a href="{% url 'curriculum:lecture_detail' slug=lecture.slug module=modules.slug course=lecture.course.slug %}" >
     {{lecture.id}}: {{lecture.name}} Taught by: {{lecture.teacher}} </a>
 <hr>
 {% endfor %}
-
+<!--if user is tutor or admin allow them to add lecture -->
 {% if user.is_staff %}
 <div class="row d-flex justify-content-center mb-3">
   <a href="{% url 'curriculum:lecture_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Add Lecture</button> </a>

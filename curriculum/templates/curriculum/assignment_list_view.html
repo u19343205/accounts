@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block title %} Assignments {% endblock %}
-
 {% block content %}
+<!--breadcrumb bar -->
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -13,12 +13,16 @@
     </ol>
   </nav>
 <title>WMGTSS | Assignments </title>
+<!--by calling upon the fk of modules in the assingment model the related name "assignments" allows all created assignment to be shown 
+as upon creation they must have a select module-->
 {% for assignment in modules.assignments.all %}
+<!--slug the assignment detail page so when each list of assignment is press it expands into their content detail and render the detail html -->
 <a href="{% url 'curriculum:assignment_detail' slug=assignment.slug module=modules.slug course=assignment.course.slug %}" >
     {{assignment.id}}: {{assignment.name}} Due: {{assignment.duedate}} </a>
 <hr>
 {% endfor %}
 
+<!--if user is tutor or admin allow them to add assignment -->
 {% if user.is_staff %}
 <div class="row d-flex justify-content-center mb-3">
   <a href="{% url 'curriculum:assignment_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Add Assignment</button> </a>

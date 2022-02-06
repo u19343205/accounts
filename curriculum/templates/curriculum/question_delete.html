@@ -3,10 +3,11 @@
 
 {% block content %}
 <title> WMGTSS | Delete Question </title>
-
+<!--delete header-->
+<!--deleted the forms and send the user back to the question list page with the question the deleted gone-->
 <h3 class="mb-4">Are you sure you want to delete?</h3>
 <form method="post">
-  {% csrf_token %}
+  {% csrf_token %} 
   <div class="row d-flex justify-content-center mb-3 mt-3">
         <div class="col-md-4 mb-3 mr-3">
                 <input type="submit" value="Delete" class="btn btn-danger btn-block">

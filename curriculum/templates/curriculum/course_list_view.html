@@ -4,6 +4,7 @@
 {% block title %} Courses {% endblock %}
 {% block content %}
 <title>WMGTSS Courses</title>
+<!--breadcrumb bar-->
   <nav aria-label="breadcrumb" style=" position:relative; margin-top: -25px;  width: 100%;">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -12,12 +13,10 @@
   </nav>
  
 <br>
-
+<!--as course is the first model created, no related name is required. all added courses will apppear on the page -->
 {% for course in courses %}
 <a href="{% url 'curriculum:module_list'  slug=course.slug  %}">
   <h2>{{course.name}}</h2>
 <br></a>
 {% endfor %}
-{% if user.is_staff %}
-{% endif %}
 {% endblock %}

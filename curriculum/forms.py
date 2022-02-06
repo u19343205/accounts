@@ -2,53 +2,34 @@ from django import forms
 from django.forms import fields, widgets
 from curriculum.models import Question, Answer, Assignment, Lecture
 
-
+#Take the question model and turn the fields into a model form 
+#Class Meta which calls to change the behaviour of the ModelForm.
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        options = [
-        ('Yes','Yes'),
-        ('No','No'),
-        ]
-        anonymous = forms.CharField(label ="Submit Anonymously", widget=forms.RadioSelect(choices=options))
+        #excludes the following fields to appear on the form
         exclude = ['module','created_by', 'standard', 'created_at', 'course', 'slug', 'assignment', 'lecture']
 
+#Take the answer model and turn the fields into a model form 
+#Class Meta which calls to change the behaviour of the ModelForm.
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
+        #fields select on;y th body field to appear on the form
         fields = ['body']
 
+#Take the assignment model and turn the fields into a model form 
+#Class Meta which calls to change the behaviour of the ModelForm.
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
+        #excludes the following fields to appear on the form
         exclude = ['module', 'course', 'slug' ]
 
+#Take the lecture model and turn the fields into a model form 
+#Class Meta which calls to change the behaviour of the ModelForm.
 class LectureForm(forms.ModelForm):
     class Meta:
         model = Lecture
+        #excludes the following fields to appear on the form
         exclude = ['module', 'course', 'slug', 'created_at']
-'''
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('body',)
-
-        labels = {"body":"Comment:"}
-
-        widgets = {
-            'body': forms.Textarea(attrs={'class':'form-control', 'rows':4, 'cols':70, 'placeholder':"Enter Your Comment"}),
-        }
-
-class ReplyForm(forms.ModelForm):
-    class Meta:
-        model = Reply
-        fields = ('reply_body',)
-
-        widgets = {
-            'reply_body': forms.Textarea(attrs={'class':'form-control', 'rows':2, 'cols':10}),
-        }
-
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        super(ReplyForm, self).__init__(*args, **kwargs)
-'''

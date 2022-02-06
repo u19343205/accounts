@@ -4,6 +4,7 @@
 
 {% block title %} {{object.question}} {% endblock %}
 {% block content %}
+<!--breadcrumb-->
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -16,7 +17,7 @@
 <title> WMGTSS | Question </title>
 
 <body>
-
+<!--Object is use for detial view as the oject of the list view it is reffering to-->
 submitted by {{object.created_by}} on {{object.created_at}}
 <hr>
 <p> Subject:{{object.subject}}</p>
@@ -24,10 +25,10 @@ submitted by {{object.created_by}} on {{object.created_at}}
 {%if request.user.is_staff %}
 <p> Uploaded: {{object.picture}}</p>
 {% endif%}
-{% csrf_token %}
-
 <br>
-<hr>
+<hr> <!--line on page-->
+<!--by calling upon the fk of questions in the answer model the related name "questions" allows all created answers to be shown 
+as upon creation they must have a select question-->
 {% for answer in questions.answers.all %}
 
 Answered by {{answer.author}} on {{answer.date_added}}<br>
@@ -35,19 +36,20 @@ Answer:{{answer.body}}
 <br>
 <hr>
 {% endfor %}
-
+<!--below content is only visible for admin and tutor-->
 {%if request.user.is_staff %}
 <div class="row d-flex justify-content-center mb-3 mt-3">
-  
+   <!--Connect to update form-->
   <div class="col-md-6 mb-3 text-center">
       <a href="{% url 'curriculum:question_update' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-warning mr-4 btn-block">Update Question</a>
   </div>
+   <!--Connect to delete page-->
   <div class="col-md-6">
       <a href="{% url 'curriculum:question_delete' course=questions.course.slug module=questions.module.slug slug=questions.slug %}" class="btn btn-danger mr-4 btn-block"> Delete Question</a>
   </div>
 
 </div>
-
+<!--answer form -->
     <h4>Answer the question below</h4>
 
     <div class="container row">

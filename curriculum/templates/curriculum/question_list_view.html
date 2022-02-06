@@ -23,38 +23,19 @@
 </div>
 </div>
 <h3>Submitted Questions</h3>
-{% csrf_token %}
-<form class="form-inline my-2 my-lg-0 justify-content-center">
-<form action="#" method="GET" value="{{request.GET.q}}">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search Questions" aria-label="Search">
-  <button class= "btn btn-outline-secondary" type="submit">Search</button></a>
-  </form>
-  <br>
-  
-  {% if submitbutton == 'Search' and request.GET.q != '' %}
-  {% if results %}
-  
-  <h1>Results for <b>{{ request.GET.q }}</b></h1>
-  <br/><br/>
-  
-  {% for result in results %}
-  
-    {{result.created_at}}
-    {{result.created_by}}
-  {% endfor %}
-  {% else %}
-  No search results for this query
-  {% endif %}
-  {% endif %}
-  
 
+<!--by calling upon the fk of module in the questions model the related name "questions" allows all created question to be shown 
+as upon creation they must have a select question-->
 {% for question in modules.questions.all %}
+<!--as a question is pressed it will render the question detail page showing info about that question-->
 <a href="{% url 'curriculum:question_detail' slug=question.slug module=modules.slug course=question.course.slug %}" >
     {{question.subject}}: {{question.question}} | asked on {{question.created_at}} by {{question.created_by}} </a>
 <br>
 <hr>
 {% endfor %}
-
+<!--following section if for furture work-->
+<!--to help aid in the intergation phases of the system once feedback, quiz and resource boards have been created they can have an easily
+accesible link here so students and canterchange between boards-->
 <div class="row d-flex justify-content-center mb-3">
            <a href="{% url 'curriculum:question_create' course=modules.course.slug slug=modules.slug %}"><button type="button" class="btn btn-success btn-lg btn-bloc" > Ask Question </button> </a>
     

@@ -1,8 +1,9 @@
+/* Change the font to Georgia on the entire website  */
 body {
     font-family: Georgia, serif;
     color: #555;
   }
-
+  /* Create header rectangle */
   .rectangle {
     position: fixed;
     left: 0;
@@ -13,7 +14,8 @@ body {
     color: rgb(6, 100, 89);
     text-align: center;
    }
-   
+   /* Base heading */
+
    .h2 {
     
     color: rgb(5, 70, 62);
@@ -22,6 +24,7 @@ body {
     margin-top: -100px;
     
    }
+   /* Base footer */
   .footer {
     position: fixed;
     left: 0;
@@ -31,17 +34,7 @@ body {
     color: white;
     text-align: left;
   }
-
-  .btn-square-xl { 
-    width: 200px !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    height: 200px !important;
-    text-align: center;
-    padding: 0px;
-    font-size:24px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    }
+  /* Homepage Cards */
     .card{
       position: fixed;
       margin-right: 0px;

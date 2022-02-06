@@ -4,7 +4,7 @@ from django.views.generic import (TemplateView, DetailView,
                                     ListView, FormView)
 
 urlpatterns = [
-path ('', views.index, name='WMGTSS Dashboard'),
+path ('', views.index, name='WMGTSS Dashboard'), #makes the first url the homepage of WMGTSS
 
 
 ]

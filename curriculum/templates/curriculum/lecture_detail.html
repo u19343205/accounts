@@ -4,6 +4,7 @@
 
 {% block title %} {{object.name}} {% endblock %}
 {% block content %}
+<!--breadcrumb bar-->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -16,23 +17,25 @@
 <title> WMGTSS | {{lectures.name}} </title>
 
 <body>
-
+<!--Object is use for detial view as the oject of the list view it is reffering to-->
 {{object.id}} | {{object.name}} Taught by: {{object.teacher}}
 <hr>
 <p> Lecture Slides: {{object.slides}}</p>
 <p> Lecture Notes: {{object.notes}}</p>
 <p> Videos: {{object.video}}</p>
 <div class="row d-flex justify-content-center mb-3">
+  <!--Connect to ask form this only works for SDLC as couldnt get slug to work for two seperate models-->
   <a href="http://127.0.0.1:8000/curriculum/digital-and-technology-solutions/software-development-cycle/ask/"><button type="button" class="btn btn-success btn-lg btn-bloc" > Ask Question </button> </a>
 
 </div>
-
+<!--if the user is admin or tutor then allow them to update lecture-->
 {%if request.user.is_staff %}
 <div class="row d-flex justify-content-center mb-3 mt-3">
   
   <div class="col-md-6 mb-3 text-center">
       <a href="{% url 'curriculum:lecture_update' course=lectures.course.slug module=lectures.module.slug slug=lectures.slug %}" class="btn btn-warning mr-4 btn-block">Update Lecture</a>
   </div>
+<!--if the user admin or then allow them to delete assignment-->
   {%if request.user.is_superuser %}
   <div class="col-md-6">
       <a href="#" class="btn btn-danger mr-4 btn-block"> Delete Lecture</a>

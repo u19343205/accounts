@@ -15,14 +15,23 @@
       <li class="breadcrumb-item active" aria-current="page">Update</li>
     </ol>
   </nav>
-
+ <!--Within the corresponding html template,
+ these forms were then simply called upon. 
+ “enctype="multipart/form-data” was added to 
+ the form to ensure files with image/file fields 
+ are encoded when submitted to the server. -->
+<!--render the same form as in assignment create however when the assignment detail refers to the content previous posted within the form so the form opens with all content inside ready to be changed -->
 <form method="post" enctype="multipart/form-data" style= "align-content: center;">
+     <!--which was generated on the 
+        server side so when the page is rendered 
+        malicious attacks are prevented. -->
   {% csrf_token %}
-  {{form|crispy}}
+  {{form|crispy}} <!--bootstrap-->
   <div class="row d-flex justify-content-center mb-3 mt-3">
         <div class="col-md-4 mb-3 mr-3">
                 <input type="submit" value="Update" class="btn btn-warning btn-block">
         </div>
+    <!--if cancel button is pressed the url is return back to the lecture detail page with no updated made to the form-->
     <div class="col-md-4 mb-3 mr-3">
         <a href="{% url 'curriculum:lecture_detail' course=lectures.course.slug module=lectures.module.slug slug=lectures.slug %}" class="btn btn-danger btn-block">Cancel Update</a>
 </div>

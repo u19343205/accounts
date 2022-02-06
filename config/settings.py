@@ -34,9 +34,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog.apps.CatalogConfig',
-    'curriculum',
-    'crispy_forms',
+    'catalog.apps.CatalogConfig', #added
+    'curriculum', #added
+    'crispy_forms', #adeed
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  
   
@@ -119,8 +119,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/' 
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')] #added so that images and css can be called upon
 
 
 

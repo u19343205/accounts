@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.template.defaultfilters import slugify
 from curriculum.models import Question, User
 
+#check to ensure when a question is submitted the slug of the question is indeed to subject 
 class ModelsTestCase(TestCase):
     def test_question_has_slug(self):
         """Questions are given slugs correctly when saving"""
@@ -10,6 +11,7 @@ class ModelsTestCase(TestCase):
         question.save()
         self.assertEqual(question.slug, slugify(question.subject))
 
+#checks the functionality of submitting a question
 class QuestionsModelTestcase(TestCase):
     """Check if creating a question works"""
     @classmethod
